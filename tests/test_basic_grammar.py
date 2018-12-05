@@ -1,13 +1,10 @@
 #!/usr/bin/env python
 
-from unittest import TestCase, main
-from hydra.hyaml.translator import translate
+from unittest import main
+from tests import TranslationCase as TestCase
 
 
 class TestBasicGrammar(TestCase):
-    def assertTranslated(self, expr, expectation):
-        self.assertEqual(translate(expr + "\n"), expectation)
-
     def test_variable(self):
         self.assertTranslated("$foo", "variables.get('foo')")
 

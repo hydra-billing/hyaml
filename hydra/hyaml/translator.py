@@ -1,9 +1,16 @@
-from antlr4 import CommonTokenStream, InputStream
-from hydra.hyaml.grammar import HyamlVisitor, HyamlLexer, HyamlParser
+from antlr4 import CommonTokenStream, InputStream, ParseTreeWalker
+from hydra.hyaml.grammar import HyamlListener, HyamlLexer, HyamlParser
 
 
-class Visitor(HyamlVisitor):
-    def visitExpr(self, ctx: HyamlParser.ExprContext):
+class Listener(HyamlListener):
+    def __init__(self):
+        self._buffer = []
+
+    @property
+    def output(self):
+        return "".join(self._buffer)
+
+    def enterExpr(self, ctx: HyamlParser.ExprContext):
         fst = ctx.start
 
         if fst.type == HyamlParser.VAR:
@@ -23,28 +30,21 @@ class Visitor(HyamlVisitor):
         elif fst.type == HyamlParser.FALSE:
             self._buffer.append("False")
 
-        return super().visitExpr(ctx)
-
-    def __call__(self, tree):
-        self._buffer = []
-        self.visitProg(tree)
-
-        return "".join(self._buffer)
-
 
 class Translator:
-    _visitor = Visitor()
-
     def __call__(self, expr):
         input = InputStream(expr)
         lexer = HyamlLexer(input)
         stream = CommonTokenStream(lexer)
         parser = HyamlParser(stream)
         tree = parser.prog()
+        listener = Listener()
+        walker = ParseTreeWalker()
+        walker.walk(listener, tree)
         # lisp_tree_str = tree.toStringTree(recog=parser)
         # print(lisp_tree_str)
 
-        return self._visitor(tree)
+        return listener.output
 
 
 _translator = Translator()

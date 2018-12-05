@@ -16,7 +16,7 @@ In order to build a new parser, follow the instructions (taken from the ANTLR's 
 - Define your language grammar in the .g4 format (there's an extension for VSCode!).
 - Generate the output by running
   ```bash
-  antlr4 -Dlanguage=Python3 -no-listener -visitor MyGrammar.g4
+  antlr4 -Dlanguage=Python3 MyGrammar.g4
   ```
 - Add all generated/updated files to commit.
 - You're all set!
@@ -56,7 +56,7 @@ Running this script with `python parser-example.py sample.txt` prints something 
 (prog (expr (expr $cdr) (callChain (link (methodCall . some (arguments ( (exprList (expr (listLiteral [ ]))) )))))) \n)
 ```
 
-For transforming parsed structures you'll need a visitor.
+For transforming parsed structures you'll need a listener.
 
 ## Traversing API
 

@@ -54,3 +54,4 @@ boolLiteral: TRUE | FALSE;
 boolOperator: AND | OR;
 
 listLiteral: '[' exprList? ']';
+

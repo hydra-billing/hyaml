@@ -129,11 +129,13 @@ class HyamlParser ( Parser ):
         def getRuleIndex(self):
             return HyamlParser.RULE_prog
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitProg" ):
-                return visitor.visitProg(self)
-            else:
-                return visitor.visitChildren(self)
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterProg" ):
+                listener.enterProg(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitProg" ):
+                listener.exitProg(self)
 
 
 
@@ -211,11 +213,13 @@ class HyamlParser ( Parser ):
         def getRuleIndex(self):
             return HyamlParser.RULE_expr
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExpr" ):
-                return visitor.visitExpr(self)
-            else:
-                return visitor.visitChildren(self)
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterExpr" ):
+                listener.enterExpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitExpr" ):
+                listener.exitExpr(self)
 
 
 
@@ -375,11 +379,13 @@ class HyamlParser ( Parser ):
         def getRuleIndex(self):
             return HyamlParser.RULE_link
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitLink" ):
-                return visitor.visitLink(self)
-            else:
-                return visitor.visitChildren(self)
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterLink" ):
+                listener.enterLink(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitLink" ):
+                listener.exitLink(self)
 
 
 
@@ -429,11 +435,13 @@ class HyamlParser ( Parser ):
         def getRuleIndex(self):
             return HyamlParser.RULE_callChain
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCallChain" ):
-                return visitor.visitCallChain(self)
-            else:
-                return visitor.visitChildren(self)
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterCallChain" ):
+                listener.enterCallChain(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitCallChain" ):
+                listener.exitCallChain(self)
 
 
 
@@ -485,11 +493,13 @@ class HyamlParser ( Parser ):
         def getRuleIndex(self):
             return HyamlParser.RULE_methodCall
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMethodCall" ):
-                return visitor.visitMethodCall(self)
-            else:
-                return visitor.visitChildren(self)
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterMethodCall" ):
+                listener.enterMethodCall(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitMethodCall" ):
+                listener.exitMethodCall(self)
 
 
 
@@ -535,11 +545,13 @@ class HyamlParser ( Parser ):
         def getRuleIndex(self):
             return HyamlParser.RULE_attribute
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitAttribute" ):
-                return visitor.visitAttribute(self)
-            else:
-                return visitor.visitChildren(self)
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterAttribute" ):
+                listener.enterAttribute(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitAttribute" ):
+                listener.exitAttribute(self)
 
 
 
@@ -578,11 +590,13 @@ class HyamlParser ( Parser ):
         def getRuleIndex(self):
             return HyamlParser.RULE_exprList
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExprList" ):
-                return visitor.visitExprList(self)
-            else:
-                return visitor.visitChildren(self)
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterExprList" ):
+                listener.enterExprList(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitExprList" ):
+                listener.exitExprList(self)
 
 
 
@@ -629,11 +643,13 @@ class HyamlParser ( Parser ):
         def getRuleIndex(self):
             return HyamlParser.RULE_arguments
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArguments" ):
-                return visitor.visitArguments(self)
-            else:
-                return visitor.visitChildren(self)
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterArguments" ):
+                listener.enterArguments(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitArguments" ):
+                listener.exitArguments(self)
 
 
 
@@ -678,11 +694,13 @@ class HyamlParser ( Parser ):
         def getRuleIndex(self):
             return HyamlParser.RULE_subscription
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitSubscription" ):
-                return visitor.visitSubscription(self)
-            else:
-                return visitor.visitChildren(self)
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterSubscription" ):
+                listener.enterSubscription(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitSubscription" ):
+                listener.exitSubscription(self)
 
 
 
@@ -722,11 +740,13 @@ class HyamlParser ( Parser ):
         def getRuleIndex(self):
             return HyamlParser.RULE_boolLiteral
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitBoolLiteral" ):
-                return visitor.visitBoolLiteral(self)
-            else:
-                return visitor.visitChildren(self)
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterBoolLiteral" ):
+                listener.enterBoolLiteral(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitBoolLiteral" ):
+                listener.exitBoolLiteral(self)
 
 
 
@@ -768,11 +788,13 @@ class HyamlParser ( Parser ):
         def getRuleIndex(self):
             return HyamlParser.RULE_boolOperator
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitBoolOperator" ):
-                return visitor.visitBoolOperator(self)
-            else:
-                return visitor.visitChildren(self)
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterBoolOperator" ):
+                listener.enterBoolOperator(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitBoolOperator" ):
+                listener.exitBoolOperator(self)
 
 
 
@@ -812,11 +834,13 @@ class HyamlParser ( Parser ):
         def getRuleIndex(self):
             return HyamlParser.RULE_listLiteral
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitListLiteral" ):
-                return visitor.visitListLiteral(self)
-            else:
-                return visitor.visitChildren(self)
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterListLiteral" ):
+                listener.enterListLiteral(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitListLiteral" ):
+                listener.exitListLiteral(self)
 
 
 
