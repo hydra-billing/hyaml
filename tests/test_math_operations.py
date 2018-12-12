@@ -20,6 +20,9 @@ class TestMathOperations(TestCase):
     def test_division(self):
         self.assertTranslated("9.0  / 5.1", "9.0 / 5.1")
 
+    def test_modulo(self):
+        self.assertTranslated("5 % 2", "5 % 2")
+
 
 class TestMathOpPrecedence(TestCase):
     def test_mult_with_addition(self):
