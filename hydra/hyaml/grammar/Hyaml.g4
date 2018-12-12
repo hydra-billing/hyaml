@@ -33,7 +33,7 @@ NUMBER:
 	{self._input.LT(1) != self.NUMBER} [-+]? DIGIT+ ('.' DIGIT+)?;
 MULT_DIV_OP: [/*];
 ADD_SUB_OP: [-+];
-COMP_OP: [<>] | '==';
+COMP_OP: '>=' | '<=' | '<' | '>' | '==';
 VAR: '$' LETTER (LETTER | DIGIT)*;
 ID: LETTER (LETTER | DIGIT | '-' | ':' | '_')*;
 LETTER: [a-zA-Z];

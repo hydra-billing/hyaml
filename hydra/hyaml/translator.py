@@ -17,6 +17,8 @@ class Listener(HyamlListener):
             self._push(ctx.MULT_DIV_OP().getText())
         elif ctx.ADD_SUB_OP():
             self._push(ctx.ADD_SUB_OP().getText())
+        elif ctx.COMP_OP():
+            self._push(ctx.COMP_OP().getText())
         elif ctx.NUMBER():
             number = ctx.NUMBER().getText()
             self._addArg(number)
@@ -65,6 +67,12 @@ class Listener(HyamlListener):
             _, args = self._pop()
             arg, *_ = args
             self._addArg("not %s" % arg)
+        elif ctx.COMP_OP():
+            op, args = self._pop()
+            left, right = args
+
+            arg = "%s %s %s" % (left, op, right)
+            self._addArg(arg)
 
     def enterListLiteral(self, ctx):
         self._push()
