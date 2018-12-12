@@ -23,33 +23,63 @@ class Listener(HyamlListener):
             self._args = []
         elif ctx.NUMBER():
             number = ctx.NUMBER().getText()
-            self._args.append(number)
+            self._addArg(number)
         elif ctx.VAR():
             var_name = ctx.VAR().getText()[1:]
             expr = "variables.get('%s')" % var_name
-            self._args.append(expr)
+            self._addArg(expr)
         elif ctx.STRING():
             string = ctx.getText()
-            self._args.append(string)
+            self._addArg(string)
         elif ctx.EMPTY_HASH():
-            self._args.append("{}")
+            self._addArg("{}")
         elif ctx.boolLiteral():
             if ctx.boolLiteral().TRUE():
-                self._args.append("True")
+                self._addArg("True")
             else:
-                self._args.append("False")
+                self._addArg("False")
 
     def exitExpr(self, ctx):
         if ctx.MULT_DIV_OP() or ctx.ADD_SUB_OP():
-            current_op = self._op
-            left_arg, right_arg = self._args
-            self._op, self._args = self._stack.pop()
-            arg = "%s %s %s" % (left_arg, current_op, right_arg)
+            op, args = self._pop()
+            left, right = args
 
-            if self._op is None:
-                self._args.append(arg)
+            arg = "%s %s %s" % (left, op, right)
+
+            if self._op not in ("+", "-", "*", "/"):
+                self._addArg(arg)
             else:
-                self._args.append("(%s)" % arg)
+                self._addArg("(%s)" % arg)
+
+    def enterAttribute(self, ctx):
+        target = self._removeArg()
+        arg = "%s['%s']" % (target, ctx.ID())
+        self._addArg(arg)
+
+    def enterMethodCall(self, ctx):
+        target = self._removeArg()
+        self._push()
+        self._op = ctx.ID()
+        self._args = [target]
+
+    def exitMethodCall(self, ctx):
+        method, args = self._pop()
+        self._addArg("%s(%s)" % (method, ", ".join(args)))
+
+    def _push(self):
+        self._stack.append((self._op, self._args))
+
+    def _pop(self):
+        op, args = self._op, self._args
+        self._op, self._args = self._stack.pop()
+
+        return (op, args)
+
+    def _addArg(self, arg):
+        self._args.append(arg)
+
+    def _removeArg(self):
+        return self._args.pop()
 
 
 class Translator:
