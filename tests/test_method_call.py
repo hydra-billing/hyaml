@@ -33,3 +33,12 @@ class TestMethodCall(TestCase):
 
     def test_expressions_as_arguments(self):
         self.assertTranslated("$var.to_i(8 + 8)", "to_i(variables.get('var'), 8 + 8)")
+
+    def test_mixed_calls(self):
+        self.assertTranslated(
+            "$cdr.to_i(16).to_string().size",
+            "to_string(to_i(variables.get('cdr'), 16))['size']",
+        )
+
+    def test_predicates(self):
+        self.assertTranslated("16.odd?()", "is_odd(16)")

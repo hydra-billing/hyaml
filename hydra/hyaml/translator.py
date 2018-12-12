@@ -59,7 +59,12 @@ class Listener(HyamlListener):
     def enterMethodCall(self, ctx):
         target = self._removeArg()
         self._push()
-        self._op = ctx.ID()
+        if ctx.PRED():
+            method_name = "is_%s" % ctx.ID()
+        else:
+            method_name = ctx.ID()
+
+        self._op = method_name
         self._args = [target]
 
     def exitMethodCall(self, ctx):
