@@ -29,8 +29,6 @@ class Listener(HyamlListener):
         elif ctx.STRING():
             string = ctx.getText()
             self._addArg(string)
-        elif ctx.EMPTY_HASH():
-            self._addArg("{}")
         elif ctx.TRUE():
             self._addArg("True")
         elif ctx.FALSE():
@@ -81,6 +79,13 @@ class Listener(HyamlListener):
         _, elements = self._pop()
         self._addArg("[%s]" % ", ".join(elements))
 
+    def enterDictLiteral(self, ctx):
+        self._push()
+
+    def exitDictLiteral(self, ctx):
+        _, elements = self._pop()
+        self._addArg("{%s}" % ", ".join(elements))
+
     def enterAttribute(self, ctx):
         target = self._removeArg()
         arg = "%s['%s']" % (target, ctx.ID())
@@ -100,6 +105,15 @@ class Listener(HyamlListener):
     def exitMethodCall(self, ctx):
         method, args = self._pop()
         self._addArg("%s(%s)" % (method, ", ".join(args)))
+
+    def enterKeyValuePair(self, ctx):
+        key = ctx.ID().getText()
+        self._addArg(key)
+
+    def exitKeyValuePair(self, ctx):
+        value = self._removeArg()
+        key = self._removeArg()
+        self._addArg('"%s": %s' % (key, value))
 
     def enterSubscription(self, ctx):
         self._push()
@@ -135,8 +149,6 @@ class Translator:
         stream = CommonTokenStream(lexer)
         parser = HyamlParser(stream)
         tree = parser.prog()
-        # lisp_tree_str = tree.toStringTree(recog=parser)
-        # print(lisp_tree_str)
         listener = Listener()
         walker = ParseTreeWalker()
         walker.walk(listener, tree)

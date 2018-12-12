@@ -98,6 +98,33 @@ class HyamlListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by HyamlParser#keyValuePair.
+    def enterKeyValuePair(self, ctx:HyamlParser.KeyValuePairContext):
+        pass
+
+    # Exit a parse tree produced by HyamlParser#keyValuePair.
+    def exitKeyValuePair(self, ctx:HyamlParser.KeyValuePairContext):
+        pass
+
+
+    # Enter a parse tree produced by HyamlParser#keyValuePairs.
+    def enterKeyValuePairs(self, ctx:HyamlParser.KeyValuePairsContext):
+        pass
+
+    # Exit a parse tree produced by HyamlParser#keyValuePairs.
+    def exitKeyValuePairs(self, ctx:HyamlParser.KeyValuePairsContext):
+        pass
+
+
+    # Enter a parse tree produced by HyamlParser#dictLiteral.
+    def enterDictLiteral(self, ctx:HyamlParser.DictLiteralContext):
+        pass
+
+    # Exit a parse tree produced by HyamlParser#dictLiteral.
+    def exitDictLiteral(self, ctx:HyamlParser.DictLiteralContext):
+        pass
+
+
     # Enter a parse tree produced by HyamlParser#parens.
     def enterParens(self, ctx:HyamlParser.ParensContext):
         pass

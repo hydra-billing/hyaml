@@ -12,8 +12,8 @@ expr:
 	| expr subscription
 	| parens
 	| listLiteral
+	| dictLiteral
 	| VAR
-	| EMPTY_HASH
 	| NUMBER
 	| STRING
 	| TRUE
@@ -35,10 +35,10 @@ MULT_DIV_OP: [/*];
 ADD_SUB_OP: [-+];
 COMP_OP: '>=' | '<=' | '<' | '>' | '==';
 VAR: '$' LETTER (LETTER | DIGIT)*;
-ID: LETTER (LETTER | DIGIT | '-' | ':' | '_')*;
+ID_SYMBOL: [-:_];
+ID: LETTER ((LETTER | DIGIT | ID_SYMBOL)* (LETTER | DIGIT))?;
 LETTER: [a-zA-Z];
 DIGIT: [0-9];
-EMPTY_HASH: '{}';
 PRED: '?';
 STRING: ('\'' ~'\''+ '\'') | ('"' ~'"'+ '"');
 WS: [ \t\r]+ -> skip;
@@ -54,6 +54,12 @@ arguments: '(' exprList? ')';
 subscription: '[' expr ']';
 
 listLiteral: '[' exprList? ']';
+
+keyValuePair: ID ':' expr;
+
+keyValuePairs: keyValuePair (',' keyValuePair)*;
+
+dictLiteral: '{' keyValuePairs? '}';
 
 parens: '(' expr ')';
 
