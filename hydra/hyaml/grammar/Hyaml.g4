@@ -2,14 +2,15 @@ grammar Hyaml;
 
 prog: expr;
 expr:
-	'(' expr ')'
-	| NOT expr
-	| listLiteral
-	| expr CALC_OP expr
+	expr MULT_DIV_OP expr
+	| expr ADD_SUB_OP expr
 	| expr COMP_OP expr
 	| expr boolOperator expr
 	| expr callChain
 	| expr subscription
+	| parens
+	| negation
+	| listLiteral
 	| VAR
 	| EMPTY_HASH
 	| NUMBER
@@ -28,7 +29,8 @@ OR: 'or';
 NOT: 'not';
 NUMBER:
 	{self._input.LT(1) != self.NUMBER} [-+]? DIGIT+ ('.' DIGIT+)?;
-CALC_OP: [-+/*];
+MULT_DIV_OP: [/*];
+ADD_SUB_OP: [-+];
 COMP_OP: [<>] | '==';
 VAR: '$' LETTER (LETTER | DIGIT)*;
 ID: LETTER (LETTER | DIGIT | '-' | ':' | '_')*;
@@ -54,4 +56,8 @@ boolLiteral: TRUE | FALSE;
 boolOperator: AND | OR;
 
 listLiteral: '[' exprList? ']';
+
+negation: NOT expr;
+
+parens: '(' expr ')';
 

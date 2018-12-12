@@ -116,3 +116,21 @@ class HyamlListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by HyamlParser#negation.
+    def enterNegation(self, ctx:HyamlParser.NegationContext):
+        pass
+
+    # Exit a parse tree produced by HyamlParser#negation.
+    def exitNegation(self, ctx:HyamlParser.NegationContext):
+        pass
+
+
+    # Enter a parse tree produced by HyamlParser#parens.
+    def enterParens(self, ctx:HyamlParser.ParensContext):
+        pass
+
+    # Exit a parse tree produced by HyamlParser#parens.
+    def exitParens(self, ctx:HyamlParser.ParensContext):
+        pass
+
+
