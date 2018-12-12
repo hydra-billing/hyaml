@@ -4,31 +4,52 @@ from hydra.hyaml.grammar import HyamlListener, HyamlLexer, HyamlParser
 
 class Listener(HyamlListener):
     def __init__(self):
-        self._buffer = []
+        self._op = None
+        self._args = []
+        self._stack = []
 
     @property
     def output(self):
-        return "".join(self._buffer)
+        return "".join(self._args)
 
     def enterExpr(self, ctx: HyamlParser.ExprContext):
-        fst = ctx.start
-
-        if fst.type == HyamlParser.VAR:
-            var_name = ctx.VAR().symbol.text[1:]
+        if ctx.MULT_DIV_OP():
+            self._stack.append((self._op, self._args))
+            self._op = ctx.MULT_DIV_OP().getText()
+            self._args = []
+        elif ctx.ADD_SUB_OP():
+            self._stack.append((self._op, self._args))
+            self._op = ctx.ADD_SUB_OP().getText()
+            self._args = []
+        elif ctx.NUMBER():
+            number = ctx.NUMBER().getText()
+            self._args.append(number)
+        elif ctx.VAR():
+            var_name = ctx.VAR().getText()[1:]
             expr = "variables.get('%s')" % var_name
-            self._buffer.append(expr)
-        elif fst.type == HyamlParser.NUMBER:
-            number = ctx.NUMBER().symbol.text
-            self._buffer.append(number)
-        elif fst.type == HyamlParser.STRING:
-            string = ctx.STRING().symbol.text
-            self._buffer.append(string)
-        elif fst.type == HyamlParser.EMPTY_HASH:
-            self._buffer.append("{}")
-        elif fst.type == HyamlParser.TRUE:
-            self._buffer.append("True")
-        elif fst.type == HyamlParser.FALSE:
-            self._buffer.append("False")
+            self._args.append(expr)
+        elif ctx.STRING():
+            string = ctx.getText()
+            self._args.append(string)
+        elif ctx.EMPTY_HASH():
+            self._args.append("{}")
+        elif ctx.boolLiteral():
+            if ctx.boolLiteral().TRUE():
+                self._args.append("True")
+            else:
+                self._args.append("False")
+
+    def exitExpr(self, ctx):
+        if ctx.MULT_DIV_OP() or ctx.ADD_SUB_OP():
+            current_op = self._op
+            left_arg, right_arg = self._args
+            self._op, self._args = self._stack.pop()
+            arg = "%s %s %s" % (left_arg, current_op, right_arg)
+
+            if self._op is None:
+                self._args.append(arg)
+            else:
+                self._args.append("(%s)" % arg)
 
 
 class Translator:
@@ -38,11 +59,11 @@ class Translator:
         stream = CommonTokenStream(lexer)
         parser = HyamlParser(stream)
         tree = parser.prog()
+        # lisp_tree_str = tree.toStringTree(recog=parser)
+        # print(lisp_tree_str)
         listener = Listener()
         walker = ParseTreeWalker()
         walker.walk(listener, tree)
-        # lisp_tree_str = tree.toStringTree(recog=parser)
-        # print(lisp_tree_str)
 
         return listener.output
 
