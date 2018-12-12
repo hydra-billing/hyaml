@@ -66,6 +66,13 @@ class Listener(HyamlListener):
             arg, *_ = args
             self._addArg("not %s" % arg)
 
+    def enterListLiteral(self, ctx):
+        self._push()
+
+    def exitListLiteral(self, ctx):
+        _, elements = self._pop()
+        self._addArg("[%s]" % ", ".join(elements))
+
     def enterAttribute(self, ctx):
         target = self._removeArg()
         arg = "%s['%s']" % (target, ctx.ID())
@@ -85,6 +92,15 @@ class Listener(HyamlListener):
     def exitMethodCall(self, ctx):
         method, args = self._pop()
         self._addArg("%s(%s)" % (method, ", ".join(args)))
+
+    def enterSubscription(self, ctx):
+        self._push()
+
+    def exitSubscription(self, ctx):
+        _, args = self._pop()
+        target = self._removeArg()
+        arg, *_ = args
+        self._addArg("%s[%s]" % (target, arg))
 
     def _push(self, op_name=None, args=None):
         self._stack.append((self._op, self._args))

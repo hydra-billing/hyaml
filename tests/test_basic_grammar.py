@@ -26,4 +26,3 @@ class TestBasicGrammar(TestCase):
     def test_boolean(self):
         self.assertTranslated("true", "True")
         self.assertTranslated("false", "False")
-
