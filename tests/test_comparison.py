@@ -19,3 +19,9 @@ class TestComparison(TestCase):
 
     def test_eq(self):
         self.assertTranslated("1 == 2", "1 == 2")
+
+    def test_gt_gt(self):
+        self.assertTranslated("1 > 2 > 3", "1 > 2 > 3")
+
+    def test_lt_lt(self):
+        self.assertTranslated("1 < 2 < 3", "1 < 2 < 3")
