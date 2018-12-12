@@ -14,13 +14,9 @@ class Listener(HyamlListener):
 
     def enterExpr(self, ctx: HyamlParser.ExprContext):
         if ctx.MULT_DIV_OP():
-            self._stack.append((self._op, self._args))
-            self._op = ctx.MULT_DIV_OP().getText()
-            self._args = []
+            self._push(ctx.MULT_DIV_OP().getText())
         elif ctx.ADD_SUB_OP():
-            self._stack.append((self._op, self._args))
-            self._op = ctx.ADD_SUB_OP().getText()
-            self._args = []
+            self._push(ctx.ADD_SUB_OP().getText())
         elif ctx.NUMBER():
             number = ctx.NUMBER().getText()
             self._addArg(number)
@@ -33,11 +29,16 @@ class Listener(HyamlListener):
             self._addArg(string)
         elif ctx.EMPTY_HASH():
             self._addArg("{}")
-        elif ctx.boolLiteral():
-            if ctx.boolLiteral().TRUE():
-                self._addArg("True")
-            else:
-                self._addArg("False")
+        elif ctx.TRUE():
+            self._addArg("True")
+        elif ctx.FALSE():
+            self._addArg("False")
+        elif ctx.AND():
+            self._push("and")
+        elif ctx.OR():
+            self._push("or")
+        elif ctx.NOT():
+            self._push("not")
 
     def exitExpr(self, ctx):
         if ctx.MULT_DIV_OP() or ctx.ADD_SUB_OP():
@@ -50,6 +51,20 @@ class Listener(HyamlListener):
                 self._addArg(arg)
             else:
                 self._addArg("(%s)" % arg)
+        elif ctx.AND() or ctx.OR():
+            op, args = self._pop()
+            left, right = args
+
+            arg = "%s %s %s" % (left, op, right)
+
+            if self._op not in ("and", "or"):
+                self._addArg(arg)
+            else:
+                self._addArg("(%s)" % arg)
+        elif ctx.NOT():
+            _, args = self._pop()
+            arg, *_ = args
+            self._addArg("not %s" % arg)
 
     def enterAttribute(self, ctx):
         target = self._removeArg()
@@ -71,8 +86,10 @@ class Listener(HyamlListener):
         method, args = self._pop()
         self._addArg("%s(%s)" % (method, ", ".join(args)))
 
-    def _push(self):
+    def _push(self, op_name=None, args=None):
         self._stack.append((self._op, self._args))
+        self._op = op_name
+        self._args = args or []
 
     def _pop(self):
         op, args = self._op, self._args

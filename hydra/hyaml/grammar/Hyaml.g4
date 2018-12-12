@@ -5,17 +5,19 @@ expr:
 	expr MULT_DIV_OP expr
 	| expr ADD_SUB_OP expr
 	| expr COMP_OP expr
-	| expr boolOperator expr
+	| NOT expr
+	| expr AND expr
+	| expr OR expr
 	| expr callChain
 	| expr subscription
 	| parens
-	| negation
 	| listLiteral
 	| VAR
 	| EMPTY_HASH
 	| NUMBER
 	| STRING
-	| boolLiteral;
+	| TRUE
+	| FALSE;
 
 link: methodCall | attribute;
 
@@ -51,13 +53,7 @@ arguments: '(' exprList? ')';
 
 subscription: '[' expr ']';
 
-boolLiteral: TRUE | FALSE;
-
-boolOperator: AND | OR;
-
 listLiteral: '[' exprList? ']';
-
-negation: NOT expr;
 
 parens: '(' expr ')';
 

@@ -89,39 +89,12 @@ class HyamlListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by HyamlParser#boolLiteral.
-    def enterBoolLiteral(self, ctx:HyamlParser.BoolLiteralContext):
-        pass
-
-    # Exit a parse tree produced by HyamlParser#boolLiteral.
-    def exitBoolLiteral(self, ctx:HyamlParser.BoolLiteralContext):
-        pass
-
-
-    # Enter a parse tree produced by HyamlParser#boolOperator.
-    def enterBoolOperator(self, ctx:HyamlParser.BoolOperatorContext):
-        pass
-
-    # Exit a parse tree produced by HyamlParser#boolOperator.
-    def exitBoolOperator(self, ctx:HyamlParser.BoolOperatorContext):
-        pass
-
-
     # Enter a parse tree produced by HyamlParser#listLiteral.
     def enterListLiteral(self, ctx:HyamlParser.ListLiteralContext):
         pass
 
     # Exit a parse tree produced by HyamlParser#listLiteral.
     def exitListLiteral(self, ctx:HyamlParser.ListLiteralContext):
-        pass
-
-
-    # Enter a parse tree produced by HyamlParser#negation.
-    def enterNegation(self, ctx:HyamlParser.NegationContext):
-        pass
-
-    # Exit a parse tree produced by HyamlParser#negation.
-    def exitNegation(self, ctx:HyamlParser.NegationContext):
         pass
 
 
