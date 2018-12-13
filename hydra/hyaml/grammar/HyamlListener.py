@@ -26,15 +26,6 @@ class HyamlListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by HyamlParser#link.
-    def enterLink(self, ctx:HyamlParser.LinkContext):
-        pass
-
-    # Exit a parse tree produced by HyamlParser#link.
-    def exitLink(self, ctx:HyamlParser.LinkContext):
-        pass
-
-
     # Enter a parse tree produced by HyamlParser#callChain.
     def enterCallChain(self, ctx:HyamlParser.CallChainContext):
         pass
@@ -44,21 +35,12 @@ class HyamlListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by HyamlParser#methodCall.
-    def enterMethodCall(self, ctx:HyamlParser.MethodCallContext):
+    # Enter a parse tree produced by HyamlParser#attributeOrDispatch.
+    def enterAttributeOrDispatch(self, ctx:HyamlParser.AttributeOrDispatchContext):
         pass
 
-    # Exit a parse tree produced by HyamlParser#methodCall.
-    def exitMethodCall(self, ctx:HyamlParser.MethodCallContext):
-        pass
-
-
-    # Enter a parse tree produced by HyamlParser#attribute.
-    def enterAttribute(self, ctx:HyamlParser.AttributeContext):
-        pass
-
-    # Exit a parse tree produced by HyamlParser#attribute.
-    def exitAttribute(self, ctx:HyamlParser.AttributeContext):
+    # Exit a parse tree produced by HyamlParser#attributeOrDispatch.
+    def exitAttributeOrDispatch(self, ctx:HyamlParser.AttributeOrDispatchContext):
         pass
 
 
@@ -71,12 +53,12 @@ class HyamlListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by HyamlParser#arguments.
-    def enterArguments(self, ctx:HyamlParser.ArgumentsContext):
+    # Enter a parse tree produced by HyamlParser#args.
+    def enterArgs(self, ctx:HyamlParser.ArgsContext):
         pass
 
-    # Exit a parse tree produced by HyamlParser#arguments.
-    def exitArguments(self, ctx:HyamlParser.ArgumentsContext):
+    # Exit a parse tree produced by HyamlParser#args.
+    def exitArgs(self, ctx:HyamlParser.ArgsContext):
         pass
 
 

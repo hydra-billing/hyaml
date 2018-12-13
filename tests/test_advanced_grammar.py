@@ -35,3 +35,4 @@ class TestDict(TestCase):
             "{abc: 123, bcd: 2 + 4, abyr:1: [1, 2, 3]}",
             '{"abc": 123, "bcd": 2 + 4, "abyr:1": [1, 2, 3]}',
         )
+

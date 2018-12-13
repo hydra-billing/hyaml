@@ -1,5 +1,11 @@
-from antlr4 import CommonTokenStream, InputStream, ParseTreeWalker
+from antlr4 import CommonTokenStream, InputStream, ParseTreeWalker, BailErrorStrategy
 from hydra.hyaml.grammar import HyamlListener, HyamlLexer, HyamlParser
+
+
+class Parser(HyamlParser):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._errHandler = BailErrorStrategy()
 
 
 class Listener(HyamlListener):
@@ -90,25 +96,32 @@ class Listener(HyamlListener):
         _, elements = self._pop()
         self._addArg("{%s}" % ", ".join(elements))
 
-    def enterAttribute(self, ctx):
+    def enterAttributeOrDispatch(self, ctx):
         target = self._removeArg()
-        arg = "%s['%s']" % (target, ctx.ID())
-        self._addArg(arg)
+        if ctx.args():
+            if ctx.PRED():
+                method_name = "is_%s" % ctx.ID()
+            else:
+                method_name = ctx.ID()
 
-    def enterMethodCall(self, ctx):
-        target = self._removeArg()
-        self._push()
-        if ctx.PRED():
-            method_name = "is_%s" % ctx.ID()
+            self._push(method_name, [target])
         else:
-            method_name = ctx.ID()
+            if ctx.SAFE_ACCESS():
+                arg = "safe_get(%s, '%s')" % (target, ctx.ID())
+            else:
+                arg = "%s['%s']" % (target, ctx.ID())
+            self._addArg(arg)
 
-        self._op = method_name
-        self._args = [target]
-
-    def exitMethodCall(self, ctx):
-        method, args = self._pop()
-        self._addArg("%s(%s)" % (method, ", ".join(args)))
+    def exitAttributeOrDispatch(self, ctx):
+        if ctx.args():
+            method, args = self._pop()
+            if ctx.SAFE_ACCESS():
+                target, *args = args
+                self._addArg(
+                    "safe_call(%s)" % ", ".join([target, "'%s'" % method, *args])
+                )
+            else:
+                self._addArg("%s(%s)" % (method, ", ".join(args)))
 
     def enterKeyValuePair(self, ctx):
         key = ctx.ID().getText()
@@ -151,7 +164,7 @@ class Translator:
         input = InputStream(expr)
         lexer = HyamlLexer(input)
         stream = CommonTokenStream(lexer)
-        parser = HyamlParser(stream)
+        parser = Parser(stream)
         tree = parser.prog()
         # lisp_tree_str = tree.toStringTree(recog=parser)
         # print(lisp_tree_str)

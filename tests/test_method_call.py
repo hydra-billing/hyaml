@@ -42,3 +42,20 @@ class TestMethodCall(TestCase):
 
     def test_predicates(self):
         self.assertTranslated("16.odd?()", "is_odd(16)")
+
+    def test_safe_navigation(self):
+        self.assertTranslated(
+            "$var?.FOO?.Maybe",
+            "safe_get(safe_get(variables.get('var'), 'FOO'), 'Maybe')",
+        )
+
+        self.assertTranslated(
+            "$var?.something(123)", "safe_call(variables.get('var'), 'something', 123)"
+        )
+
+        self.assertTranslated(
+            "$var?.like?(123)", "safe_call(variables.get('var'), 'is_like', 123)"
+        )
+
+        self.assertTranslated("123?.odd?()", "safe_call(123, 'is_odd')")
+
