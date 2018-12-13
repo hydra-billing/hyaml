@@ -40,4 +40,6 @@ class TestCompiler(TestCase):
         self.assertEvaluatedTo("not true", False)
         self.assertEvaluatedTo("true or false", True)
         self.assertEvaluatedTo("true and not false", True)
+        self.assertEvaluatedTo("true or false and not true", True)
+        self.assertEvaluatedTo("true and not (false or true)", False)
 

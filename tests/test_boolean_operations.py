@@ -16,12 +16,15 @@ class TestBooleanOperations(TestCase):
 
     def test_complex_expression(self):
         self.assertTranslated(
-            "true or false and not true", "True or (False and not True)"
+            "true or false and not true", "True or False and not True"
         )
 
     def test_parens(self):
         self.assertTranslated(
             "(true and false) or (false and true)",
             "(True and False) or (False and True)",
+        )
+        self.assertTranslated(
+            "true and not (false or true)", "True and not (False or True)"
         )
 

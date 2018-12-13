@@ -18,6 +18,9 @@ class Listener(HyamlListener):
     def output(self):
         return "".join(self._args)
 
+    def exitParens(self, ctx):
+        self._addArg("(%s)" % self._removeArg())
+
     def enterExpr(self, ctx: HyamlParser.ExprContext):
         if ctx.MULT_DIV_OP():
             self._push(ctx.MULT_DIV_OP().getText())
@@ -57,20 +60,14 @@ class Listener(HyamlListener):
 
             arg = "%s %s %s" % (left, op, right)
 
-            if self._op not in ("+", "-", "*", "/"):
-                self._addArg(arg)
-            else:
-                self._addArg("(%s)" % arg)
+            self._addArg(arg)
         elif ctx.AND() or ctx.OR():
             op, args = self._pop()
             left, right = args
 
             arg = "%s %s %s" % (left, op, right)
 
-            if self._op not in ("and", "or"):
-                self._addArg(arg)
-            else:
-                self._addArg("(%s)" % arg)
+            self._addArg(arg)
         elif ctx.NOT():
             _, args = self._pop()
             arg, *_ = args
