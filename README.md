@@ -12,6 +12,126 @@ Initially, HYAML was built with the library named [CodeTalker](https://pypi.org/
 #
 ```
 
+## Language
+
+HYAML is an expression-oriented language or, to put it another way, it's a one-liner-oriented language. It doesn't support statements or things like assignments (directly, though it can be enhanced in certain way).
+
+## Features
+
+### Primitives
+
+The exhaustive list of supported primitive values:
+
+- Numbers, including integers and floats (use regular notation, as in `1`, `-1`, `1.0`).
+- Strings, enclosed by single or double quotes (`'foo'`, `"bar"`).
+- Boolean values are represented as `true` and `false`.
+- Variables (`$var_name`).
+
+### Basic math
+
+Addition, subtraction, multiplication, and division are backed by Python. Pay special attention to division since it's translated to `/` which is float point division rather than integer one (namely, `//`). It works like this for historical reasons only.
+
+```
+1 + 5  # addition
+-3--5  # subtraction, translated to "-3 - -5", use if you don't like spaces
+5 * 2  # multiplication
+10 / 2 # division
+```
+
+### Logical operators
+
+Logical operators are `and`, `or`, and `not`, just as in Python:
+
+```
+$a and $b           # conjunction
+$b or $c            # disjunction
+not $a              # negation
+$a and ($b or $c)   # grouping
+$foo and not false  # negation precedes other operations, conjunction precedes disjunction
+```
+
+### Comparsison
+
+Again, as in Python and most modern programming languages
+
+```
+1 > 2  # > stands for greater
+1 >= 2 # greater or equal
+1 < 2  # less
+1 <= 2 # less or equal
+1 == 2 # equal
+1 != 2 # not equal
+```
+
+Range comparisons are supported :tada:
+
+```
+10 > $a > 5 # checks whether $a less than 10 and greater than 5
+```
+
+### Lists and dicts
+
+Compared to the previous version of HYAML lists (aka arrays) and dicts (aka associative arrays, maps, and hashmaps) are first-level citizens :tada::
+
+```
+[1, 2, 3] + [$x, $y, $z] # concatenation of two lists
+{abc: 123}               # creates a dict in python {"abc: 123"}
+```
+
+Note that dict keys don't require quotes and support hyphens and colons as non-terminating symbols. In other words, `{Sub-Attr:1: 500}` is translated to `{"Sub-Attr:1": 500}`.
+
+### Accessing attributes
+
+A common task when working with HYAML is accessing nested values in a dict. This is what `.` does:
+
+```
+$dict_var.Dict-Key-Name.Nested-Key-Name:1
+```
+
+The expression above corresponds to the following Python code
+
+```python
+dict_var["Dict-Key-Name"]["Nested-Key-Name:1"]
+```
+
+`-`, `_`, `:` are special characters allowed for attribute names. When a dict doesn't have the key requested, it will produce a runtime error.
+
+### Calling methods
+
+Values in HYAML can have methods. Essentially, they are not methods at all but regular functions. There's nothing special about method calls except for adding parentheses is required even if the method doesn't take arguments.
+
+```
+"abc".substring(1)
+$var.upper()
+'0xfade114'.to_i(16)
+```
+
+Methods returning booleans usually end with `?`:
+
+```
+1.odd?()
+```
+
+### Work around null
+
+`null` value (known in Python as `None`) is a common source of errors when the value you're working with is not set. It's a burden for both static (such as C or C++) and dynamic (such as Python or JavaScript) languages. Nowadays, many of them offer a concise form of checks for value presence (null-checks). HYAML follows the trend and has support for the [safe navigation operator](https://en.wikipedia.org/wiki/Safe_navigation_operator):
+
+```
+$dict_var?.Key-Name:1
+```
+
+In the example above, if `$dict_var` is `None` or doesn't contain `Key-Name:1` this won't produce an error. Of course, you can have chains when accessing nested attributes:
+
+```
+$dict_var?.Key?.Nested-Key # this is safe now, yay!
+```
+
+The operators works for methods as well:
+
+```
+$dict_var?.substring(4)?.size() or 0
+```
+
 ## API
 
 ### Translator API
