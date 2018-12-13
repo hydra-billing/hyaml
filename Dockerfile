@@ -14,4 +14,4 @@ RUN pipenv install --dev
 COPY hydra hydra
 COPY tests tests
 
-CMD pipenv run python -m xmlrunner tests/test_* && cat *.xml > tests_output.xml
+CMD pipenv run python -m xmlrunner tests/test_* && tar cvzf tests_output.tar.gz *.xml
