@@ -36,3 +36,16 @@ class TestDict(TestCase):
             '{"abc": 123, "bcd": 2 + 4, "abyr:1": [1, 2, 3]}',
         )
 
+
+class TestPrecedence(TestCase):
+    def test_method_call_precedence(self):
+        self.assertTranslated("6 + 'abc'.length()", "6 + length('abc')")
+
+    def test_subscription_precedence(self):
+        self.assertTranslated("6 + [1, 2, 3][1]", "6 + [1, 2, 3][1]")
+
+    def test_negation_precedence(self):
+        self.assertTranslated(
+            "$a.like?('a') or $b.like?('b')",
+            "is_like(variables.get('a'), 'a') or is_like(variables.get('b'), 'b')",
+        )

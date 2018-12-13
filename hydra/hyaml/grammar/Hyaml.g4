@@ -2,14 +2,14 @@ grammar Hyaml;
 
 prog: expr;
 expr:
-	expr MULT_DIV_OP expr
+	expr callChain
+	| expr subscription
+	| expr MULT_DIV_OP expr
 	| expr SIGN expr
 	| expr COMP_OP expr
 	| NOT expr
 	| expr AND expr
 	| expr OR expr
-	| expr callChain
-	| expr subscription
 	| parens
 	| listLiteral
 	| dictLiteral
