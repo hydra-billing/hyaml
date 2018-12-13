@@ -19,9 +19,7 @@ expr:
 	| TRUE
 	| FALSE;
 
-link: methodCall | attribute;
-
-callChain: link+;
+callChain: attributeOrDispatch+;
 
 NEWLINE: [\r\n]+;
 TRUE: 'true';
@@ -38,17 +36,17 @@ ID_SYMBOL: [-:_];
 ID: LETTER ((LETTER | DIGIT | ID_SYMBOL)* (LETTER | DIGIT))?;
 LETTER: [a-zA-Z];
 DIGIT: [0-9];
-PRED: '?';
 STRING: ('\'' ~'\''+ '\'') | ('"' ~'"'+ '"');
 WS: [ \t\r]+ -> skip;
+SAFE_ACCESS: '?.';
+ACCESS: '.';
+PRED: '?';
 
-methodCall: '.' ID PRED? arguments;
-
-attribute: '.' ID;
+attributeOrDispatch: (SAFE_ACCESS | ACCESS) ID (PRED? args)?;
 
 exprList: expr (',' expr)*;
 
-arguments: '(' exprList? ')';
+args: '(' exprList? ')';
 
 subscription: '[' expr ']';
 
