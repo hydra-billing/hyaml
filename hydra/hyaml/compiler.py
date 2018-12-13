@@ -35,3 +35,4 @@ class Compiler:
 _compiler = Compiler()
 
 compile = lambda expr: _compiler(expr)
+
