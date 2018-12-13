@@ -15,6 +15,8 @@ class TestBasicGrammar(TestCase):
     def test_float(self):
         self.assertTranslated("50.01", "50.01")
         self.assertTranslated("-50.01", "-50.01")
+        self.assertTranslated("0.01", "0.01")
+        self.assertTranslated("-0.01", "-0.01")
 
     def test_string(self):
         self.assertTranslated("'foo'", "'foo'")

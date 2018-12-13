@@ -49,3 +49,7 @@ class TestPrecedence(TestCase):
             "$a.like?('a') or $b.like?('b')",
             "is_like(variables.get('a'), 'a') or is_like(variables.get('b'), 'b')",
         )
+
+    def test_float_precedence(self):
+        self.assertTranslated("0.1 == 0.1", "0.1 == 0.1")
+        self.assertTranslated("0.1 != 0.1", "0.1 != 0.1")

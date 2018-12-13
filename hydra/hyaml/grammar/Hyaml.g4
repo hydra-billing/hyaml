@@ -30,7 +30,7 @@ NOT: 'not';
 SIGN: [-+];
 NUMBER: DIGIT+ ('.' DIGIT+)?;
 MULT_DIV_OP: [/*%];
-COMP_OP: '>=' | '<=' | '<' | '>' | '==';
+COMP_OP: '>=' | '<=' | '<' | '>' | '==' | '!=';
 VAR: '$' LETTER (LETTER | DIGIT)*;
 ID_SYMBOL: [-:_];
 ID: LETTER ((LETTER | DIGIT | ID_SYMBOL)* (LETTER | DIGIT))?;

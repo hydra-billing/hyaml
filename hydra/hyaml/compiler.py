@@ -3,7 +3,7 @@ from textwrap import dedent
 
 
 class Compiler:
-    def __init__(self, bindings=("variables",)):
+    def __init__(self, bindings=()):
         self._bindings = bindings
         self.arg_names = ", ".join(self._bindings)
 
@@ -32,4 +32,4 @@ class Compiler:
 
 _compiler = Compiler()
 
-compile_to_lambda = lambda expr: _compiler(expr)
+compile = lambda expr: _compiler(expr)
