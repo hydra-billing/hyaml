@@ -12,11 +12,88 @@ Initially, HYAML was built with the library named [CodeTalker](https://pypi.org/
 #
 ```
 
-## Usage
+## API
 
+### Translator API
+
+Translator takes a (presumably) valid string HYAML and generates a (most likely) valid Python expression:
+
+```python
+from hydra.hyaml.translator import translate
+
+translate("$foo") 
+# variables.get('foo')
+translate("1.odd?()")
+# is_odd(1)
 ```
-#
+
+### Compiler API
+
+Compiler takes one step further and makes a function from the given expression:
+
+```python
+from hydra.hyaml.compiler import compile
+
+nine_plus_five = compiler("9 + 5")
+nine_plus_five() 
+# 9
 ```
+
+For using variables in expressions you'll need to add bindings to functions:
+
+```python
+from hydra.hyaml.compiler import Compiler
+compile = Compiler(bindings=("variables",))
+
+inc = compile("$var + 1")
+inc({"var": 1})
+# 2
+inc({"var": 10})
+# 11
+```
+
+In order to work with methods you'll need to provide a table of functions to the compiler:
+
+```python
+from hydra.hyaml.compiler import Compiler
+
+methods = {
+    "square": lambda x: x ** 2, 
+    "is_like": lambda x, y: x.startswith(y)
+}
+compile = Compiler(method_name=methods)
+
+square = compile("5.square()")
+square()
+# 25
+like = compiler("'abcdef'.like?('ab')")
+like()
+# True
+```
+
+Finally, using variables and methods together:
+
+```python
+from hydra.hyaml.compiler import Compiler
+
+methods = {
+    "square": lambda x: x ** 2, 
+    "is_like": lambda x, y: x.startswith(y)
+}
+compile = Compiler(method_name=methods, bindings=("variables",))
+square = compile("$x.square()")
+square({"x": 10})
+# 100
+square({"x": 7})
+# 49
+like = compile("'abcdef'.like?($str)")
+like({"str": "ab"})
+# True
+like({"str": "abc"})
+# True
+```
+
+For those who curious, there's a module named "prelude" which holds globally available methods. They are used for implementing some language features. Specifically, the subscription operator (aka square brackets) relies on `get`, safe navigation to attributes and method calls relies on `safe_get` and `safe_call` respectively. You can override those methods with your own variants using `method_table` (but you cannot remove them, why would you anyway?).
 
 ## Development
 
@@ -30,6 +107,21 @@ pip install -r requirements.txt
 
 ```bash
 python -m unittest tests/test_*
+```
+
+## Playground
+
+HYAML is provided with interactive shell for testing out the language, fire it up with `./bin/console`
+
+```
+./bin/console
+
+(Pdb) translate("$var")
+"variables.get('var')"
+(Pdb) evaluate("1 + 1")
+2
+(Pdb) evaluate("1 + $x", {"x": 2})
+3
 ```
 
 ## ANTLR
