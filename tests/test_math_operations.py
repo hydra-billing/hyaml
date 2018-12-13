@@ -25,6 +25,7 @@ class TestMathOperations(TestCase):
 
     def test_lack_of_spaces(self):
         self.assertTranslated("3-5", "3 - 5")
+        self.assertTranslated("-3--5", "-3 - -5")
 
 
 class TestMathOpPrecedence(TestCase):
@@ -38,4 +39,3 @@ class TestGrouping(TestCase):
 
     def test_associating_to_left(self):
         self.assertTranslated("(4 - 3) - 2", "(4 - 3) - 2")
-
