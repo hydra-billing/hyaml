@@ -18,6 +18,9 @@ class Listener(HyamlListener):
     def output(self):
         return "".join(self._args)
 
+    def exitParens(self, ctx):
+        self._addArg("(%s)" % self._removeArg())
+
     def enterExpr(self, ctx: HyamlParser.ExprContext):
         if ctx.MULT_DIV_OP():
             self._push(ctx.MULT_DIV_OP().getText())
@@ -51,36 +54,25 @@ class Listener(HyamlListener):
             self._push("not")
 
     def exitExpr(self, ctx):
-        if ctx.MULT_DIV_OP() or ctx.SIGN() and not ctx.NUMBER():
+        bin_opt = (
+            ctx.MULT_DIV_OP()
+            or ctx.SIGN()
+            and not ctx.NUMBER()
+            or ctx.AND()
+            or ctx.OR()
+            or ctx.COMP_OP()
+        )
+        if bin_opt:
             op, args = self._pop()
             left, right = args
 
             arg = "%s %s %s" % (left, op, right)
 
-            if self._op not in ("+", "-", "*", "/"):
-                self._addArg(arg)
-            else:
-                self._addArg("(%s)" % arg)
-        elif ctx.AND() or ctx.OR():
-            op, args = self._pop()
-            left, right = args
-
-            arg = "%s %s %s" % (left, op, right)
-
-            if self._op not in ("and", "or"):
-                self._addArg(arg)
-            else:
-                self._addArg("(%s)" % arg)
+            self._addArg(arg)
         elif ctx.NOT():
             _, args = self._pop()
             arg, *_ = args
             self._addArg("not %s" % arg)
-        elif ctx.COMP_OP():
-            op, args = self._pop()
-            left, right = args
-
-            arg = "%s %s %s" % (left, op, right)
-            self._addArg(arg)
 
     def enterListLiteral(self, ctx):
         self._push()
@@ -100,16 +92,14 @@ class Listener(HyamlListener):
         target = self._removeArg()
         if ctx.args():
             if ctx.PRED():
-                method_name = "is_%s" % ctx.ID()
+                method_name = "is_%s" % ctx.ID().getText()
             else:
-                method_name = ctx.ID()
+                method_name = ctx.ID().getText()
 
             self._push(method_name, [target])
         else:
-            if ctx.SAFE_ACCESS():
-                arg = "safe_get(%s, '%s')" % (target, ctx.ID())
-            else:
-                arg = "%s['%s']" % (target, ctx.ID())
+            method = "safe_get" if ctx.SAFE_ACCESS() else "get"
+            arg = "%s(%s, '%s')" % (method, target, ctx.ID().getText())
             self._addArg(arg)
 
     def exitAttributeOrDispatch(self, ctx):
@@ -117,9 +107,7 @@ class Listener(HyamlListener):
             method, args = self._pop()
             if ctx.SAFE_ACCESS():
                 target, *args = args
-                self._addArg(
-                    "safe_call(%s)" % ", ".join([target, "'%s'" % method, *args])
-                )
+                self._addArg("safe_call(%s)" % ", ".join([target, method, *args]))
             else:
                 self._addArg("%s(%s)" % (method, ", ".join(args)))
 

@@ -2,7 +2,8 @@ grammar Hyaml;
 
 prog: expr;
 expr:
-	expr callChain
+	parens
+	| expr callChain
 	| expr subscription
 	| expr MULT_DIV_OP expr
 	| expr SIGN expr
@@ -10,7 +11,6 @@ expr:
 	| NOT expr
 	| expr AND expr
 	| expr OR expr
-	| parens
 	| listLiteral
 	| dictLiteral
 	| VAR
@@ -30,7 +30,7 @@ NOT: 'not';
 SIGN: [-+];
 NUMBER: DIGIT+ ('.' DIGIT+)?;
 MULT_DIV_OP: [/*%];
-COMP_OP: '>=' | '<=' | '<' | '>' | '==';
+COMP_OP: '>=' | '<=' | '<' | '>' | '==' | '!=';
 VAR: '$' LETTER (LETTER | DIGIT)*;
 ID_SYMBOL: [-:_];
 ID: LETTER ((LETTER | DIGIT | ID_SYMBOL)* (LETTER | DIGIT))?;

@@ -12,11 +12,13 @@ class TestMethodCall(TestCase):
         self.assertTranslated("$var.to_i(16)", "to_i(variables.get('var'), 16)")
 
     def test_accessing_attribute(self):
-        self.assertTranslated("$cdr.Custom-Attr", "variables.get('cdr')['Custom-Attr']")
+        self.assertTranslated(
+            "$cdr.Custom-Attr", "get(variables.get('cdr'), 'Custom-Attr')"
+        )
 
     def test_multiple_attributes(self):
         self.assertTranslated(
-            "$cdr.Attr:1.Attr:2", "variables.get('cdr')['Attr:1']['Attr:2']"
+            "$cdr.Attr:1.Attr:2", "get(get(variables.get('cdr'), 'Attr:1'), 'Attr:2')"
         )
 
     def test_calls_as_arguments(self):
@@ -27,7 +29,7 @@ class TestMethodCall(TestCase):
 
         self.assertTranslated(
             "$cdr.to_i($var.sixteen, $var2.upper())",
-            "to_i(variables.get('cdr'), variables.get('var')['sixteen'], "
+            "to_i(variables.get('cdr'), get(variables.get('var'), 'sixteen'), "
             + "upper(variables.get('var2')))",
         )
 
@@ -37,7 +39,7 @@ class TestMethodCall(TestCase):
     def test_mixed_calls(self):
         self.assertTranslated(
             "$cdr.to_i(16).to_string().size",
-            "to_string(to_i(variables.get('cdr'), 16))['size']",
+            "get(to_string(to_i(variables.get('cdr'), 16)), 'size')",
         )
 
     def test_predicates(self):
@@ -50,12 +52,12 @@ class TestMethodCall(TestCase):
         )
 
         self.assertTranslated(
-            "$var?.something(123)", "safe_call(variables.get('var'), 'something', 123)"
+            "$var?.something(123)", "safe_call(variables.get('var'), something, 123)"
         )
 
         self.assertTranslated(
-            "$var?.like?(123)", "safe_call(variables.get('var'), 'is_like', 123)"
+            "$var?.like?(123)", "safe_call(variables.get('var'), is_like, 123)"
         )
 
-        self.assertTranslated("123?.odd?()", "safe_call(123, 'is_odd')")
+        self.assertTranslated("123?.odd?()", "safe_call(123, is_odd)")
 
