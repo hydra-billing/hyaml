@@ -25,3 +25,11 @@ class TestComparison(TestCase):
 
     def test_lt_lt(self):
         self.assertTranslated("1 < 2 < 3", "1 < 2 < 3")
+
+    def test_inequality(self):
+        self.assertTranslated("1 != 2", "1 != 2")
+
+    def test_inequality(self):
+        self.assertTranslated("3-5", "3 - 5")
+        self.assertTranslated("2<3-5", "2 < 3 - 5")
+
