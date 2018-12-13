@@ -6,6 +6,32 @@ The syntax is inspired by the Python programming language. It is enhanced with a
 
 Initially, HYAML was built with the library named [CodeTalker](https://pypi.org/project/CodeTalker/). That lib got the job done, however, its main purpose was to be as fast as possible. To be the fastest language parser around CodeTalker used Cython underneath that is essentially C with Python-like syntax. Since Cython, just as C, is a compiled language it compiles CodeTalker's sources on installation. As time went by, this became a major maintenance pain point. In addition to that, HYAML wasn't meant to be fast because of the way it's used: after reading the config file all HYAML-expressions are translated to regular Python functions. This is done once on startup and it's usually _fast enough_. Eventually, HYAML's backend was switched to ANTLR.
 
+## Installation
+
+```
+#
+```
+
+## Usage
+
+```
+#
+```
+
+## Development
+
+HYAML works with Python 3.7+. Install Python and pip then run
+
+```bash
+pip install -r requirements.txt
+```
+
+## Running tests
+
+```bash
+python -m unittest tests/test_*
+```
+
 ## ANTLR
 
 TL;DR: ANTLR is a tool for building language parsers. Be sure you visited its [website](https://www.antlr.org/) and checked out the [source code](https://github.com/antlr/antlr4). ANTLR is written in Java but can generate parsers in Python. Compared to CodeTalker it has plenty of [examples](https://github.com/jszheng/py3antlr4book) and a ton of answered question at StackOverflow.
@@ -58,5 +84,22 @@ Running this script with `python parser-example.py sample.txt` prints something 
 
 For transforming parsed structures you'll need a listener.
 
-## Traversing API
+## Listener API
+
+Along with a lexer and a parser, ANTLR generates a listener, a class which can be used to track the parsing process. In order to use it, create a subclass for the generated listener and implement necessary hook methods:
+
+```python
+class Listener(MyGrammarListener):
+    def __init__(self):
+        self._initial_state = MyState()
+
+    def enterMyExpression(self, ctx):
+        self._modifyStateAsNeeded()
+
+    def exitMyExpression(self, ctx):
+        self._modifyStateAsNeeded()
+```
+
+Check out `translator.py` to see a real example, it's rather straightforward.
+
 
