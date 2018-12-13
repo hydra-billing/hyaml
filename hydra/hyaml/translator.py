@@ -54,14 +54,15 @@ class Listener(HyamlListener):
             self._push("not")
 
     def exitExpr(self, ctx):
-        if ctx.MULT_DIV_OP() or ctx.SIGN() and not ctx.NUMBER():
-            op, args = self._pop()
-            left, right = args
-
-            arg = "%s %s %s" % (left, op, right)
-
-            self._addArg(arg)
-        elif ctx.AND() or ctx.OR():
+        bin_opt = (
+            ctx.MULT_DIV_OP()
+            or ctx.SIGN()
+            and not ctx.NUMBER()
+            or ctx.AND()
+            or ctx.OR()
+            or ctx.COMP_OP()
+        )
+        if bin_opt:
             op, args = self._pop()
             left, right = args
 
@@ -72,12 +73,6 @@ class Listener(HyamlListener):
             _, args = self._pop()
             arg, *_ = args
             self._addArg("not %s" % arg)
-        elif ctx.COMP_OP():
-            op, args = self._pop()
-            left, right = args
-
-            arg = "%s %s %s" % (left, op, right)
-            self._addArg(arg)
 
     def enterListLiteral(self, ctx):
         self._push()
