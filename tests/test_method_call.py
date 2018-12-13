@@ -50,12 +50,12 @@ class TestMethodCall(TestCase):
         )
 
         self.assertTranslated(
-            "$var?.something(123)", "safe_call(variables.get('var'), 'something', 123)"
+            "$var?.something(123)", "safe_call(variables.get('var'), something, 123)"
         )
 
         self.assertTranslated(
-            "$var?.like?(123)", "safe_call(variables.get('var'), 'is_like', 123)"
+            "$var?.like?(123)", "safe_call(variables.get('var'), is_like, 123)"
         )
 
-        self.assertTranslated("123?.odd?()", "safe_call(123, 'is_odd')")
+        self.assertTranslated("123?.odd?()", "safe_call(123, is_odd)")
 

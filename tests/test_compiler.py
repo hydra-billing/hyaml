@@ -77,3 +77,27 @@ class TestMethodCalls(TestCase):
     def test_predicates(self):
         self.assertEvaluatedTo("2.odd?()", False)
         self.assertEvaluatedTo("'foobar'.like?('foo')", True)
+
+
+class TestAttributesAccess(TestCase):
+    bindings = ("variables",)
+    method_table = {"is_foo": lambda _: 1 / 0}
+
+    def test_simple_access(self):
+        self.assertEvaluatedTo(
+            "$cdr.REQ.Attr:1", {"cdr": {"REQ": {"Attr:1": 123}}}, 123
+        )
+
+    def test_safe_navigation(self):
+        self.assertEvaluatedTo("$cdr?.REQ?.Attr:1", {"cdr": None}, None)
+        self.assertEvaluatedTo("$cdr?.REQ?.Attr:1", {"cdr": {"REQ": None}}, None)
+        self.assertEvaluatedTo(
+            "$cdr?.REQ?.Attr:1", {"cdr": {"REQ": {"Attr:1": 123}}}, 123
+        )
+
+    def test_safe_calls(self):
+        self.assertEvaluatedTo("$var?.foo?()", {"var": None}, None)
+        self.assertEvaluatedTo("$var?.foo?(123)", {"var": None}, None)
+        with self.assertRaises(Exception):
+            self.compile("$var?.bar?()")({"var": None})
+

@@ -92,16 +92,17 @@ class Listener(HyamlListener):
         target = self._removeArg()
         if ctx.args():
             if ctx.PRED():
-                method_name = "is_%s" % ctx.ID()
+                method_name = "is_%s" % ctx.ID().getText()
+
             else:
-                method_name = ctx.ID()
+                method_name = ctx.ID().getText()
 
             self._push(method_name, [target])
         else:
             if ctx.SAFE_ACCESS():
-                arg = "safe_get(%s, '%s')" % (target, ctx.ID())
+                arg = "safe_get(%s, '%s')" % (target, ctx.ID().getText())
             else:
-                arg = "%s['%s']" % (target, ctx.ID())
+                arg = "%s['%s']" % (target, ctx.ID().getText())
             self._addArg(arg)
 
     def exitAttributeOrDispatch(self, ctx):
@@ -109,9 +110,7 @@ class Listener(HyamlListener):
             method, args = self._pop()
             if ctx.SAFE_ACCESS():
                 target, *args = args
-                self._addArg(
-                    "safe_call(%s)" % ", ".join([target, "'%s'" % method, *args])
-                )
+                self._addArg("safe_call(%s)" % ", ".join([target, method, *args]))
             else:
                 self._addArg("%s(%s)" % (method, ", ".join(args)))
 
