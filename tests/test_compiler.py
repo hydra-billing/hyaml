@@ -24,3 +24,20 @@ class TestCompiler(TestCase):
         self.assertEvaluatedTo("9==8", False)
         self.assertEvaluatedTo("9 != -0.1", True)
 
+    def test_lists(self):
+        self.assertEvaluatedTo("[]", [])
+        self.assertEvaluatedTo("[1]", [1])
+        self.assertEvaluatedTo("[1 + 3]", [4])
+        self.assertEvaluatedTo("[1] + [2]", [1, 2])
+        self.assertEvaluatedTo("['[]']", ["[]"])
+
+    def test_dicts(self):
+        self.assertEvaluatedTo("{}", {})
+        self.assertEvaluatedTo("{abc: 123}", {"abc": 123})
+        self.assertEvaluatedTo("{abc:1: 123}", {"abc:1": 123})
+
+    def test_boolean_operators(self):
+        self.assertEvaluatedTo("not true", False)
+        self.assertEvaluatedTo("true or false", True)
+        self.assertEvaluatedTo("true and not false", True)
+
