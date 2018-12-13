@@ -8,7 +8,7 @@ class TestLists(TestCase):
     def test_list_of_expressions(self):
         self.assertTranslated(
             "[1, true, not false, $cdr.Attr:3]",
-            "[1, True, not False, variables.get('cdr')['Attr:3']]",
+            "[1, True, not False, get(variables.get('cdr'), 'Attr:3')]",
         )
 
     def test_empty_list(self):
