@@ -3,14 +3,15 @@ from textwrap import dedent
 
 
 class Compiler:
-    def __init__(self, bindings=()):
+    def __init__(self, bindings=(), method_table={}):
         self._bindings = bindings
         self.arg_names = ", ".join(self._bindings)
+        self._method_table = method_table
 
     def __call__(self, expr):
         py_expr = translate(expr)
 
-        glbs = {}
+        glbs = self._method_table
         lcls = {}
 
         code = dedent(

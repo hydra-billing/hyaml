@@ -43,3 +43,37 @@ class TestCompiler(TestCase):
         self.assertEvaluatedTo("true or false and not true", True)
         self.assertEvaluatedTo("true and not (false or true)", False)
 
+    def test_subscription(self):
+        self.assertEvaluatedTo("{abc: 123}['abc']", 123)
+
+
+class TestVariables(TestCase):
+    bindings = ("variables",)
+
+    def test_simple_access(self):
+        self.assertEvaluatedTo("$var", {"var": 5}, 5)
+
+    def test_using_variables_in_expressions(self):
+        self.assertEvaluatedTo("$a + $b", {"a": 5, "b": 6}, 11)
+
+
+class TestMethodCalls(TestCase):
+    method_table = {
+        "square": lambda x: x ** 2,
+        "take": lambda xs, y: xs[:y],
+        "is_odd": lambda n: n % 1 == 1,
+        "is_like": lambda a, b: a.startswith(b),
+    }
+
+    def test_simple_call(self):
+        self.assertEvaluatedTo("5.square()", 25)
+
+    def test_chain_call(self):
+        self.assertEvaluatedTo("5.square().square()", 625)
+
+    def test_arguments(self):
+        self.assertEvaluatedTo("[1, 2, 3, 4].take(2)", [1, 2])
+
+    def test_predicates(self):
+        self.assertEvaluatedTo("2.odd?()", False)
+        self.assertEvaluatedTo("'foobar'.like?('foo')", True)
