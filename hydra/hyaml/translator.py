@@ -15,13 +15,17 @@ class Listener(HyamlListener):
     def enterExpr(self, ctx: HyamlParser.ExprContext):
         if ctx.MULT_DIV_OP():
             self._push(ctx.MULT_DIV_OP().getText())
-        elif ctx.ADD_SUB_OP():
-            self._push(ctx.ADD_SUB_OP().getText())
+        elif ctx.SIGN() and not ctx.NUMBER():
+            self._push(ctx.SIGN().getText())
         elif ctx.COMP_OP():
             self._push(ctx.COMP_OP().getText())
         elif ctx.NUMBER():
             number = ctx.NUMBER().getText()
-            self._addArg(number)
+            if ctx.SIGN():
+                sign = ctx.SIGN().getText()
+            else:
+                sign = ""
+            self._addArg(sign + number)
         elif ctx.VAR():
             var_name = ctx.VAR().getText()[1:]
             expr = "variables.get('%s')" % var_name
@@ -41,7 +45,7 @@ class Listener(HyamlListener):
             self._push("not")
 
     def exitExpr(self, ctx):
-        if ctx.MULT_DIV_OP() or ctx.ADD_SUB_OP():
+        if ctx.MULT_DIV_OP() or ctx.SIGN() and not ctx.NUMBER():
             op, args = self._pop()
             left, right = args
 
@@ -149,6 +153,8 @@ class Translator:
         stream = CommonTokenStream(lexer)
         parser = HyamlParser(stream)
         tree = parser.prog()
+        # lisp_tree_str = tree.toStringTree(recog=parser)
+        # print(lisp_tree_str)
         listener = Listener()
         walker = ParseTreeWalker()
         walker.walk(listener, tree)

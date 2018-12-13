@@ -23,6 +23,9 @@ class TestMathOperations(TestCase):
     def test_modulo(self):
         self.assertTranslated("5 % 2", "5 % 2")
 
+    def test_lack_of_spaces(self):
+        self.assertTranslated("3-5", "3 - 5")
+
 
 class TestMathOpPrecedence(TestCase):
     def test_mult_with_addition(self):

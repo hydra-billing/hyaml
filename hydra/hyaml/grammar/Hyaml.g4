@@ -3,7 +3,7 @@ grammar Hyaml;
 prog: expr;
 expr:
 	expr MULT_DIV_OP expr
-	| expr ADD_SUB_OP expr
+	| expr SIGN expr
 	| expr COMP_OP expr
 	| NOT expr
 	| expr AND expr
@@ -14,7 +14,7 @@ expr:
 	| listLiteral
 	| dictLiteral
 	| VAR
-	| NUMBER
+	| SIGN? NUMBER
 	| STRING
 	| TRUE
 	| FALSE;
@@ -29,11 +29,10 @@ FALSE: 'false';
 AND: 'and';
 OR: 'or';
 NOT: 'not';
-NUMBER:
-	{self._input.LT(1) != self.NUMBER} [-+]? DIGIT+ ('.' DIGIT+)?;
+SIGN: [-+];
+NUMBER: DIGIT+ ('.' DIGIT+)?;
 MULT_DIV_OP: [/*%];
-ADD_SUB_OP: [-+];
-COMP_OP: '>=' | '<=' | '<' | '>' | '==' | '!=';
+COMP_OP: '>=' | '<=' | '<' | '>' | '==';
 VAR: '$' LETTER (LETTER | DIGIT)*;
 ID_SYMBOL: [-:_];
 ID: LETTER ((LETTER | DIGIT | ID_SYMBOL)* (LETTER | DIGIT))?;
