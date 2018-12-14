@@ -90,6 +90,7 @@ class TestAttributesAccess(TestCase):
 
     def test_safe_navigation(self):
         self.assertEvaluatedTo("$cdr?.REQ?.Attr:1", {"cdr": None}, None)
+        self.assertEvaluatedTo("$cdr?.REQ?.Attr:1", {"cdr": {}}, None)
         self.assertEvaluatedTo("$cdr?.REQ?.Attr:1", {"cdr": {"REQ": None}}, None)
         self.assertEvaluatedTo(
             "$cdr?.REQ?.Attr:1", {"cdr": {"REQ": {"Attr:1": 123}}}, 123
