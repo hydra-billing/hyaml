@@ -36,7 +36,7 @@ ID_SYMBOL: [-:_];
 ID: LETTER ((LETTER | DIGIT | ID_SYMBOL)* (LETTER | DIGIT))?;
 LETTER: [a-zA-Z];
 DIGIT: [0-9];
-STRING: ('\'' ~'\''+ '\'') | ('"' ~'"'+ '"');
+STRING: ('\'' ~'\''* '\'') | ('"' ~'"'* '"');
 WS: [ \t\r]+ -> skip;
 SAFE_ACCESS: '?.';
 ACCESS: '.';

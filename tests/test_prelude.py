@@ -156,7 +156,7 @@ class TestArray(TestCase):
         self.assertMethodCall(
             "$x.map_join('-')", ["1-2-3", "a-b-c"], x=[["1", "2", "3"], ["a", "b", "c"]]
         )
-        # self.assertMethodCall(
-        #     "$x.map_join('')", ["123", "abc"], x=[["1", "2", "3"], ["a", "b", "c"]]
-        # )
+        self.assertMethodCall(
+            "$x.map_join('')", ["123", "abc"], x=[["1", "2", "3"], ["a", "b", "c"]]
+        )
 
