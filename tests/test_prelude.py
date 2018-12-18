@@ -3,12 +3,82 @@
 from unittest import main
 from tests import CompilerCase as TestCase
 
-from hydra.hyaml import prelude
+from hydra.hyaml.methods import prelude
 
 
-class TestPredicates(TestCase):
+class TestString(TestCase):
     bindings = ("variables",)
-    method_table = prelude.predicates
+    method_table = prelude.string
+
+    def test_length(self):
+        self.assertMethodCall("$x.length()", 0, x="")
+        self.assertMethodCall("$x.length()", 3, x="foo")
+
+    def test_substring(self):
+        self.assertMethodCall("$x.substring(0)", "foo", x="foo")
+        self.assertMethodCall("$x.substring(1)", "oo", x="foo")
+        self.assertMethodCall("$x.substring(10)", "", x="foo")
+        self.assertMethodCall("$x.substring(10)", "", x="")
+        self.assertMethodCall("$x.substring(0, 1)", "f", x="f")
+        self.assertMethodCall("$x.substring(0, 10)", "foo", x="foo")
+
+    def test_converting_to_integer(self):
+        self.assertMethodCall("$x.to_i()", 10, x="10")
+        self.assertMethodCall("$x.to_i(8)", 8, x="10")
+        self.assertMethodCall("$x.to_i(16)", 255, x="ff")
+        self.assertMethodCall("$x.to_i(2)", 15, x="1111")
+
+    def test_unhex(self):
+        self.assertMethodCall("$x.unhex()", "-", x="0x2d")
+        self.assertMethodCall("$x.unhex()", "-", x="2d")
+
+    def test_replace(self):
+        self.assertMethodCall("$x.replace($y)", "ac", x="abcb", y="b")
+        self.assertMethodCall("$x.replace($y, 'd')", "adcd", x="abcb", y="b")
+
+    def test_reverse(self):
+        self.assertMethodCall("$x.reverse()", "cba", x="abc")
+        self.assertMethodCall("$x.reverse()", "", x="")
+
+    def test_padding(self):
+        self.assertMethodCall("$x.pad_right($y, $z)", "abczzz", x="abc", y=6, z="z")
+        self.assertMethodCall("$x.pad_right($y, $z)", "abc", x="abc", y=2, z="z")
+        self.assertMethodCall("$x.pad_right($y, $z)", "abc", x="abc", y=0, z="z")
+        self.assertMethodCall("$x.pad_left($y, $z)", "zzzabc", x="abc", y=6, z="z")
+        self.assertMethodCall("$x.pad_left($y, $z)", "abc", x="abc", y=2, z="z")
+        self.assertMethodCall("$x.pad_left($y, $z)", "abc", x="abc", y=0, z="z")
+
+    def test_regexp_replace(self):
+        self.assertMethodCall("$x.regexp_replace('\\s+')", "abc", x="  a  b\n\rc")
+        self.assertMethodCall("$x.regexp_replace('^\\d', 'd')", "d23", x="123")
+
+    def test_string_start_end(self):
+        self.assertMethodCall("$x.starts_with?($y)", True, x="abc", y="ab")
+        self.assertMethodCall("$x.starts_with?($y)", False, x="abc", y="ba")
+        self.assertMethodCall("$x.ends_with?($y)", True, x="abc", y="bc")
+        self.assertMethodCall("$x.ends_with?($y)", False, x="abc", y="cb")
+
+    def test_matching(self):
+        self.assertMethodCall("$x.like?('^foo')", True, x="foobar")
+        self.assertMethodCall("$x.like?('^foo')", False, x="barfoo")
+
+    def test_split(self):
+        self.assertMethodCall("$x.split()", ["123", "456"], x="123 456")
+        self.assertMethodCall("$x.split('.')", ["1", "2", "3"], x="1.2.3")
+        self.assertMethodCall("$x.split('.')", ["123"], x="123")
+        self.assertMethodCall("$x.split('.', 1)", ["1", "2.3"], x="1.2.3")
+
+    def test_strip(self):
+        self.assertMethodCall("$x.strip()", "foo", x=" \n\r\t   foo   \n\t\r ")
+
+    def test_upper_lower(self):
+        self.assertMethodCall("$x.upper()", "FOO", x="foo")
+        self.assertMethodCall("$x.lower()", "foo", x="FOO")
+
+
+class TestNumber(TestCase):
+    bindings = ("variables",)
+    method_table = prelude.number
 
     def test_evenness(self):
         self.assertMethodCall("$x.odd?()", True, x=1)
@@ -22,9 +92,18 @@ class TestPredicates(TestCase):
         self.assertMethodCall("$x.even?()", False, x=-1)
         self.assertMethodCall("$x.even?()", True, x=-2)
 
-    def test_matching(self):
-        self.assertMethodCall("$x.like?('^foo')", True, x="foobar")
-        self.assertMethodCall("$x.like?('^foo')", False, x="barfoo")
+
+class TestPolymorphic(TestCase):
+    bindings = ("variables",)
+    method_table = prelude.polymorphic
+
+    def test_to_hex(self):
+        self.assertMethodCall("$x.to_hex()", "0xa", x=10)
+        self.assertMethodCall("$x.to_hex()", "3130", x="10")
+
+    def test_null(self):
+        self.assertMethodCall("$x.null?()", True, x=None)
+        self.assertMethodCall("$x.null?()", False, x=1)
 
     def test_emptiness(self):
         self.assertMethodCall("$x.empty?()", True, x=False)
@@ -46,12 +125,38 @@ class TestPredicates(TestCase):
         self.assertMethodCall("$x.in?($y)", True, x="a", y="bac")
         self.assertMethodCall("$x.in?($y)", False, x="d", y="bac")
 
-    def test_null(self):
-        self.assertMethodCall("$x.null?()", True, x=None)
-        self.assertMethodCall("$x.null?()", False, x=1)
+    def test_to_s(self):
+        self.assertMethodCall("$x.to_s()", "5", x=5)
+        self.assertMethodCall("$x.to_s()", "5", x="5")
+        self.assertMethodCall("$x.to_s()", "", x=None)
+        self.assertMethodCall("$x.to_s()", "5.0", x=5.0)
 
-    def test_string_start_end(self):
-        self.assertMethodCall("$x.starts_with?($y)", True, x="abc", y="ab")
-        self.assertMethodCall("$x.starts_with?($y)", False, x="abc", y="ba")
-        self.assertMethodCall("$x.ends_with?($y)", True, x="abc", y="bc")
-        self.assertMethodCall("$x.ends_with?($y)", False, x="abc", y="cb")
+
+class TestDictionary(TestCase):
+    bindings = ("variables",)
+    method_table = prelude.dictionary
+
+    def test_merge(self):
+        self.assertMethodCall("$x.merge('b', 10)", {"a": 5, "b": 10}, x={"a": 5})
+        self.assertMethodCall("$x.merge({b: 10})", {"a": 5, "b": 10}, x={"a": 5})
+        self.assertMethodCall("$x.merge(['b', 10])", {"a": 5, "b": 10}, x={"a": 5})
+        self.assertMethodCall(
+            "$x.merge([['b', 10], ['c', 20]])", {"a": 5, "b": 10, "c": 20}, x={"a": 5}
+        )
+
+
+class TestArray(TestCase):
+    bindings = ("variables",)
+    method_table = prelude.array
+
+    def test_map_join(self):
+        self.assertMethodCall(
+            "$x.map_join()", ["1,2,3", "a,b,c"], x=[["1", "2", "3"], ["a", "b", "c"]]
+        )
+        self.assertMethodCall(
+            "$x.map_join('-')", ["1-2-3", "a-b-c"], x=[["1", "2", "3"], ["a", "b", "c"]]
+        )
+        # self.assertMethodCall(
+        #     "$x.map_join('')", ["123", "abc"], x=[["1", "2", "3"], ["a", "b", "c"]]
+        # )
+

@@ -46,6 +46,9 @@ class TestCompiler(TestCase):
     def test_subscription(self):
         self.assertEvaluatedTo("{abc: 123}['abc']", 123)
 
+    def test_escaping(self):
+        self.assertEvaluatedTo("'\\s\\d'", "\\s\\d")
+
 
 class TestVariables(TestCase):
     bindings = ("variables",)

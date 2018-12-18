@@ -41,7 +41,7 @@ class Listener(HyamlListener):
             self._addArg(expr)
         elif ctx.STRING():
             string = ctx.getText()
-            self._addArg(string)
+            self._addArg(self._escape(string))
         elif ctx.TRUE():
             self._addArg("True")
         elif ctx.FALSE():
@@ -145,6 +145,9 @@ class Listener(HyamlListener):
 
     def _removeArg(self):
         return self._args.pop()
+
+    def _escape(self, string):
+        return string.replace("\\", "\\\\")
 
 
 class Translator:

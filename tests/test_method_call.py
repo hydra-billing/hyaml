@@ -10,6 +10,7 @@ class TestMethodCall(TestCase):
 
     def test_call_with_arguments(self):
         self.assertTranslated("$var.to_i(16)", "to_i(variables.get('var'), 16)")
+        # self.assertTranslated("$var.map_join('')", "map_join(variables.get('var'), '')")
 
     def test_accessing_attribute(self):
         self.assertTranslated(

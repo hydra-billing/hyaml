@@ -1,5 +1,5 @@
 from hydra.hyaml.translator import translate
-from hydra.hyaml.prelude import builtin
+from hydra.hyaml.methods.prelude import all as prelude
 from textwrap import dedent
 
 
@@ -7,7 +7,7 @@ class Compiler:
     def __init__(self, bindings=(), method_table={}):
         self._bindings = bindings
         self.arg_names = ", ".join(self._bindings)
-        self._method_table = {**builtin, **method_table}
+        self._method_table = {**prelude, **method_table}
 
     def __call__(self, expr):
         py_expr = translate(expr)

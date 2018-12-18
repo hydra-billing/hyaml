@@ -29,7 +29,5 @@ class TestComparison(TestCase):
     def test_inequality(self):
         self.assertTranslated("1 != 2", "1 != 2")
 
-    def test_inequality(self):
-        self.assertTranslated("3-5", "3 - 5")
+    def test_expression_comparison(self):
         self.assertTranslated("2<3-5", "2 < 3 - 5")
-
