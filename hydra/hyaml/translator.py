@@ -1,5 +1,13 @@
+from keyword import kwlist
 from antlr4 import CommonTokenStream, InputStream, ParseTreeWalker, BailErrorStrategy
 from hydra.hyaml.grammar import HyamlListener, HyamlLexer, HyamlParser
+
+
+def _escape_keyword(string):
+    if string in kwlist:
+        return "%s_" % string
+    else:
+        return string
 
 
 class Parser(HyamlParser):
@@ -41,7 +49,7 @@ class Listener(HyamlListener):
             self._addArg(expr)
         elif ctx.STRING():
             string = ctx.getText()
-            self._addArg(string)
+            self._addArg(self._escape(string))
         elif ctx.TRUE():
             self._addArg("True")
         elif ctx.FALSE():
@@ -96,7 +104,7 @@ class Listener(HyamlListener):
             else:
                 method_name = ctx.ID().getText()
 
-            self._push(method_name, [target])
+            self._push(_escape_keyword(method_name), [target])
         else:
             method = "safe_get" if ctx.SAFE_ACCESS() else "get"
             arg = "%s(%s, '%s')" % (method, target, ctx.ID().getText())
@@ -145,6 +153,9 @@ class Listener(HyamlListener):
 
     def _removeArg(self):
         return self._args.pop()
+
+    def _escape(self, string):
+        return string.replace("\\", "\\\\")
 
 
 class Translator:

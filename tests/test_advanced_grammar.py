@@ -53,3 +53,8 @@ class TestPrecedence(TestCase):
     def test_float_precedence(self):
         self.assertTranslated("0.1 == 0.1", "0.1 == 0.1")
         self.assertTranslated("0.1 != 0.1", "0.1 != 0.1")
+
+
+class TestEscaping(TestCase):
+    def test_strings_with_backslash_are_escaped(self):
+        self.assertTranslated("'\\s'", "'\\\\s'")

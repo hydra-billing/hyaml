@@ -10,6 +10,7 @@ class TestMethodCall(TestCase):
 
     def test_call_with_arguments(self):
         self.assertTranslated("$var.to_i(16)", "to_i(variables.get('var'), 16)")
+        self.assertTranslated("$var.map_join('')", "map_join(variables.get('var'), '')")
 
     def test_accessing_attribute(self):
         self.assertTranslated(
@@ -60,4 +61,33 @@ class TestMethodCall(TestCase):
         )
 
         self.assertTranslated("123?.odd?()", "safe_call(123, is_odd)")
+
+    def test_reserved_words(self):
+        self.assertTranslated("1.as()", "as_(1)")
+        self.assertTranslated("1.assert()", "assert_(1)")
+        self.assertTranslated("1.break()", "break_(1)")
+        self.assertTranslated("1.class()", "class_(1)")
+        self.assertTranslated("1.continue()", "continue_(1)")
+        self.assertTranslated("1.def()", "def_(1)")
+        self.assertTranslated("1.del()", "del_(1)")
+        self.assertTranslated("1.elif()", "elif_(1)")
+        self.assertTranslated("1.else()", "else_(1)")
+        self.assertTranslated("1.except()", "except_(1)")
+        self.assertTranslated("1.finally()", "finally_(1)")
+        self.assertTranslated("1.for()", "for_(1)")
+        self.assertTranslated("1.from()", "from_(1)")
+        self.assertTranslated("1.global()", "global_(1)")
+        self.assertTranslated("1.if()", "if_(1)")
+        self.assertTranslated("1.import()", "import_(1)")
+        self.assertTranslated("1.in()", "in_(1)")
+        self.assertTranslated("1.is()", "is_(1)")
+        self.assertTranslated("1.lambda()", "lambda_(1)")
+        self.assertTranslated("1.nonlocal()", "nonlocal_(1)")
+        self.assertTranslated("1.pass()", "pass_(1)")
+        self.assertTranslated("1.raise()", "raise_(1)")
+        self.assertTranslated("1.return()", "return_(1)")
+        self.assertTranslated("1.try()", "try_(1)")
+        self.assertTranslated("1.while()", "while_(1)")
+        self.assertTranslated("1.with()", "with_(1)")
+        self.assertTranslated("1.yield()", "yield_(1)")
 
