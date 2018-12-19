@@ -1,3 +1,6 @@
+from datetime import timedelta
+
+
 def bytes(number):
     return int(number)
 
@@ -23,3 +26,32 @@ def gigabytes(number):
 
 def terabytes(number):
     return bytes(number) * _tera
+
+
+def seconds(number):
+    return timedelta(seconds=number)
+
+
+def minutes(number):
+    return timedelta(minutes=number)
+
+
+def hours(number):
+    return timedelta(hours=number)
+
+
+def days(number):
+    return timedelta(days=number)
+
+
+def weeks(number):
+    return timedelta(weeks=number)
+
+
+def months(number):
+    return timedelta(days=number * 30)
+
+
+def years(number):
+    return timedelta(days=number * 365)
+

@@ -2,6 +2,7 @@
 
 from unittest import main
 from tests import CompilerCase as TestCase
+from datetime import datetime
 
 from hydra.hyaml.methods import prelude
 
@@ -75,6 +76,11 @@ class TestString(TestCase):
         self.assertMethodCall("$x.upper()", "FOO", x="foo")
         self.assertMethodCall("$x.lower()", "foo", x="FOO")
 
+    def test_date_conversion(self):
+        self.assertMethodCall(
+            "$x.to_date($fmt)", datetime(2018, 12, 19), x="2018-12-19", fmt="%Y-%m-%d"
+        )
+
 
 class TestNumber(TestCase):
     bindings = ("variables",)
@@ -131,6 +137,29 @@ class TestPolymorphic(TestCase):
         self.assertMethodCall("$x.to_s()", "", x=None)
         self.assertMethodCall("$x.to_s()", "5.0", x=5.0)
 
+    def test_try(self):
+        self.assertMethodCall("$x.try('Foo')", 5, x={"Foo": 5})
+        self.assertMethodCall("$x.try('Bar')", None, x={"Foo": 5})
+        self.assertMethodCall("$x.try('Bar').try('Buzz')", None, x={"Foo": 5})
+        self.assertMethodCall("$x.try('Bar', 6)", 6, x={"Foo": 5})
+        self.assertMethodCall("$x.try(1)", 2, x=[1, 2, 3])
+        self.assertMethodCall("$x.try(1, 6)", 2, x=[1, 2, 3])
+        self.assertMethodCall("$x.try(10, 6)", 6, x=[1, 2, 3])
+        self.assertMethodCall("$x.try(-1)", 3, x=[1, 2, 3])
+        self.assertMethodCall("$x.try(-3)", 1, x=[1, 2, 3])
+        self.assertMethodCall("$x.try(-10)", None, x=[1, 2, 3])
+        self.assertMethodCall("$x.try(2)", 4, x=range(2, 10))
+        self.assertMethodCall("$x.try(20)", None, x=range(2, 10))
+
+    def test_coalesce(self):
+        self.assertMethodCall("$x.coalesce()", None, x=None)
+        self.assertMethodCall("$x.coalesce()", 0, x=0)
+        self.assertMethodCall("$x.coalesce(1)", 1, x=None)
+        self.assertMethodCall("$x.coalesce($y, 1)", 1, x=None, y=None)
+        self.assertMethodCall("$x.coalesce($y, 1)", 2, x=None, y=2)
+        self.assertMethodCall("$x.coalesce(1, $y)", 1, x=None, y=None)
+        self.assertMethodCall("$x.coalesce($y)", None, x=None, y=None)
+
 
 class TestDictionary(TestCase):
     bindings = ("variables",)
@@ -142,6 +171,14 @@ class TestDictionary(TestCase):
         self.assertMethodCall("$x.merge(['b', 10])", {"a": 5, "b": 10}, x={"a": 5})
         self.assertMethodCall(
             "$x.merge([['b', 10], ['c', 20]])", {"a": 5, "b": 10, "c": 20}, x={"a": 5}
+        )
+
+    def test_pairs(self):
+        self.assertMethodCall("$x.pairs()", [("a", 1), ("b", 2)], x={"b": 2, "a": 1})
+
+    def test_except(self):
+        self.assertMethodCall(
+            "$x.except('b', 'c')", {"a": 1}, x={"a": 1, "b": 2, "c": 3}
         )
 
 
@@ -159,4 +196,9 @@ class TestArray(TestCase):
         self.assertMethodCall(
             "$x.map_join('')", ["123", "abc"], x=[["1", "2", "3"], ["a", "b", "c"]]
         )
+
+    def test_join(self):
+        self.assertMethodCall("$x.join()", "", x=[])
+        self.assertMethodCall("$x.join()", "123", x=[1, 2, 3])
+        self.assertMethodCall("$x.join()", "123", x=[1, None, 2, None, 3])
 

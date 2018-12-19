@@ -13,3 +13,12 @@ def merge(dictionary, *args):
             return {**dictionary, **{key: value for (key, value) in args[0]}}
     else:
         return {**dictionary, **args[0]}
+
+
+def pairs(dictionary):
+    return list(sorted(dictionary.items()))
+
+
+def except_(dictionary, *keys):
+    return {k: v for (k, v) in dictionary.items() if k not in keys}
+

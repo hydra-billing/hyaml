@@ -1,4 +1,5 @@
 import re
+from datetime import datetime
 
 
 def length(string):
@@ -77,3 +78,7 @@ def upper(string):
 
 def lower(string):
     return string.lower()
+
+
+def to_date(string, fmt):
+    return datetime.strptime(string, fmt)
