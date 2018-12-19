@@ -1,10 +1,10 @@
 # HYAML
 
-HYAML is a language for configuring Hydra Billing software parts, such as HARD.
+HYAML is an expression-oriented language which serves the purpose of writing consice config files without introducing all the power of a fully-featured scripting language. In a nutshell, it's an extensible DSL for writing configs.
 
-The syntax is inspired by the Python programming language. It is enhanced with a number of features useful for writing concise and readable config files. At the same time, it lacks a lot of feature Python has since they're not relevant to the common configuration tasks. For example, you won't see list expressions or lambdas here.
+The syntax is inspired by the Python programming language. At the same time, it lacks a lot of features Python has since they're not relevant to the common configuration tasks. For example, you won't see list expressions or lambdas here.
 
-Initially, HYAML was built with the library named [CodeTalker](https://pypi.org/project/CodeTalker/). That lib got the job done, however, its main purpose was to be as fast as possible. To be the fastest language parser around CodeTalker used Cython underneath that is essentially C with Python-like syntax. Since Cython, just as C, is a compiled language it compiles CodeTalker's sources on installation. As time went by, this became a major maintenance pain point. In addition to that, HYAML wasn't meant to be fast because of the way it's used: after reading the config file all HYAML-expressions are translated to regular Python functions. This is done once on startup and it's usually _fast enough_. Eventually, HYAML's backend was switched to ANTLR.
+Initially, HYAML was built with the library named [CodeTalker](https://pypi.org/project/CodeTalker/). That lib got the job done, however, its main purpose was to be as fast as possible. To be the fastest language parser around CodeTalker used Cython underneath that is essentially C with Python-like syntax. Since Cython, just as C, is a compiled language, it compiles CodeTalker's sources on installation. As time went by, this became a major pain point for maintenance. In addition to that, HYAML wasn't meant to be _that_ fast because of the way it's used: after reading a config file all HYAML-expressions are translated to regular Python functions. This is done once on startup and it's usually _fast enough_. Eventually, HYAML's backend was switched to [ANTLR](https://www.antlr.org/).
 
 ## Installation
 
@@ -14,7 +14,7 @@ Initially, HYAML was built with the library named [CodeTalker](https://pypi.org/
 
 ## Language
 
-HYAML is an expression-oriented language or, to put it another way, it's a one-liner-oriented language. It doesn't support statements or things like assignments (directly, though it can be enhanced in certain way).
+HYAML is an expression-oriented language or, to put it another way, it's a one-liner-oriented language. It doesn't support statements or things like assignments (directly, though it can be enhanced in certain ways).
 
 ## Features
 
