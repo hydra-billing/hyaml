@@ -4,14 +4,12 @@ RUN mkdir /hyaml
 
 WORKDIR /hyaml
 
-COPY Pipfile Pipfile
-COPY Pipfile.lock Pipfile.lock
+COPY setup.py setup.py
+COPY README.md README.md
 
-RUN pip install pipenv
+RUN pip install -e .[dev]
 
-RUN pipenv install --dev
-
-COPY hydra hydra
+COPY hyaml hyaml
 COPY tests tests
 
 CMD pipenv run python -m xmlrunner tests/test_* && tar cvzf tests_output.tar.gz *.xml
