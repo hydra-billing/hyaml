@@ -8,8 +8,10 @@ Initially, HYAML was built with the library named [CodeTalker](https://pypi.org/
 
 ## Installation
 
+Use pip to install HYAML. It's tested against Python 3.7 and work with earlier versions is not guaranteed.
+
 ```
-#
+pip install hyaml
 ```
 
 ## Language
@@ -231,17 +233,14 @@ python -m unittest tests/test_*
 
 ## Playground
 
-HYAML is provided with interactive shell for testing out the language, fire it up with `./bin/console`
+HYAML is provided with interactive shell for testing out the language, fire it up with `hyaml`
 
 ```
-./bin/console
+$ hyaml
 
-(Pdb) translate("$var")
-"variables.get('var')"
-(Pdb) evaluate("1 + 1")
-2
-(Pdb) evaluate("1 + $x", {"x": 2})
-3
+>>> evaluate("$x.starts_with?('foo')", x="foobar")
+True
+>>>
 ```
 
 ## ANTLR

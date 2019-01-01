@@ -1,11 +1,10 @@
 def main():
     from hyaml.translator import translate
-    from hyaml.compiler import Compiler
+    from hyaml.compiler import compile
     from code import interact
 
-    methods = {"square": lambda x: x ** 2, "take": lambda xs, y: xs[:y]}
+    def evaluate(expr, **lcls):
+        fn = compile(expr, bindings=("variables",))
+        return fn(variables=lcls)
 
-    _compiler_with_variables = Compiler(bindings=("variables",), method_table=methods)
-
-    evaluate = lambda expr, **lcls: _compiler_with_variables(expr)(lcls)
-    interact(local={"evaluate": evaluate})
+    interact(local={"evaluate": evaluate, "translate": translate})

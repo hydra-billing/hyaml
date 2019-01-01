@@ -1,3 +1,4 @@
+from functools import lru_cache
 from hyaml.translator import translate
 from hyaml.methods.prelude import all as prelude
 from textwrap import dedent
@@ -32,7 +33,10 @@ class Compiler:
         return func
 
 
-_compiler = Compiler()
+@lru_cache(maxsize=128)
+def _compiler(bindings=()):
+    return Compiler(bindings=bindings)
 
-compile = lambda expr: _compiler(expr)
+
+compile = lambda expr, bindings=(): _compiler(bindings=bindings)(expr)
 
