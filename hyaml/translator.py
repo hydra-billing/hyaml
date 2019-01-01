@@ -1,6 +1,6 @@
 from keyword import kwlist
 from antlr4 import CommonTokenStream, InputStream, ParseTreeWalker, BailErrorStrategy
-from hydra.hyaml.grammar import HyamlListener, HyamlLexer, HyamlParser
+from hyaml.grammar import HyamlListener, HyamlLexer, HyamlParser
 
 
 def _escape_keyword(string):

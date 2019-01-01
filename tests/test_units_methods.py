@@ -4,7 +4,7 @@ from unittest import main
 from tests import CompilerCase as TestCase
 from datetime import timedelta
 
-from hydra.hyaml.methods import units
+from hyaml.methods import units
 
 
 class TestUnits(TestCase):

@@ -1,4 +1,4 @@
-from hydra.hyaml.methods.prelude import (
+from hyaml.methods.prelude import (
     runtime,
     string,
     number,

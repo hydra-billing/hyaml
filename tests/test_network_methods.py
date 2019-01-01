@@ -3,7 +3,7 @@
 from unittest import main
 from tests import CompilerCase as TestCase
 
-from hydra.hyaml.methods import network
+from hyaml.methods import network
 
 
 class TestString(TestCase):

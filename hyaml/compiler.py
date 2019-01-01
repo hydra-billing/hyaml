@@ -1,5 +1,5 @@
-from hydra.hyaml.translator import translate
-from hydra.hyaml.methods.prelude import all as prelude
+from hyaml.translator import translate
+from hyaml.methods.prelude import all as prelude
 from textwrap import dedent
 
 

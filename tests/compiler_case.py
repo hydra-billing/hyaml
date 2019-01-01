@@ -1,5 +1,5 @@
 from unittest import TestCase
-from hydra.hyaml.compiler import Compiler
+from hyaml.compiler import Compiler
 
 
 class CompilerCase(TestCase):

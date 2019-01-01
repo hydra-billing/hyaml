@@ -1,6 +1,6 @@
 import re
 from ipaddress import ip_address, ip_network, IPv4Address, IPv4Network
-from hydra.hyaml.methods.prelude.string import is_like, regexp_replace
+from hyaml.methods.prelude.string import is_like, regexp_replace
 
 
 def is_mac(string):

@@ -4,7 +4,7 @@ from unittest import main
 from tests import CompilerCase as TestCase
 from datetime import datetime
 
-from hydra.hyaml.methods import prelude
+from hyaml.methods import prelude
 
 
 class TestString(TestCase):

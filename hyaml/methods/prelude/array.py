@@ -1,4 +1,4 @@
-from hydra.hyaml.methods.prelude.polymorphic import to_s
+from hyaml.methods.prelude.polymorphic import to_s
 
 
 def map_join(array, separator=","):

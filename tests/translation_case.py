@@ -1,5 +1,5 @@
 from unittest import TestCase
-from hydra.hyaml.translator import translate
+from hyaml.translator import translate
 
 
 class TranslationCase(TestCase):
