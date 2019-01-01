@@ -225,38 +225,6 @@ like({"str": "abc"})
 
 For those who curious, there's a module named "prelude" which holds globally available methods. They are used for implementing some language features. Specifically, the subscription operator (aka square brackets) relies on `get`, safe navigation to attributes and method calls relies on `safe_get` and `safe_call` respectively. You can override those methods with your own variants using `method_table` (but you cannot remove them, why would you anyway?).
 
-## Development
-
-HYAML works with Python 3.7+. Install Python and pip then run
-
-```bash
-pip install -e .[dev]
-```
-
-## Packaging and publishing
-
-According to the [docs](https://packaging.python.org/tutorials/packaging-projects/), run the following commands:
-
-```
-pip install --upgrade setuptools wheel twine
-python3 setup.py sdist bdist_wheel
-```
-
-You may want to publish the package to the Test PyPi repo first:
-
-```
-twine upload --repository-url https://test.pypi.org/legacy/ dist/*
-```
-
-If you sure and ready, publish it to the main index:
-
-```
-twine upload --repository-url https://pypi.org/legacy/ dist/*
-```
-
-Note that for publishing you'll be asked for your credentials for access to PyPi repositories. See additional [instructions](https://packaging.python.org/guides/using-testpypi/#setting-up-testpypi-in-pypirc) on managing credentials.
-
-
 ## Running tests
 
 ```bash
@@ -344,3 +312,38 @@ class Listener(MyGrammarListener):
 ```
 
 Check out `translator.py` to see a real example, it's rather straightforward.
+
+## Development
+
+HYAML works with Python 3.7+. Install Python and pip then run
+
+```bash
+pip install -e .[dev]
+```
+
+## Packaging and publishing
+
+According to the [docs](https://packaging.python.org/tutorials/packaging-projects/), run the following commands:
+
+```
+pip install --upgrade setuptools wheel twine
+python3 setup.py sdist bdist_wheel
+```
+
+You may want to publish the package to the Test PyPi repo first:
+
+```
+twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+```
+
+If you sure and ready, publish it to the main index:
+
+```
+twine upload --repository-url https://pypi.org/legacy/ dist/*
+```
+
+Note that for publishing you'll be asked for your credentials for access to PyPi repositories. See additional [instructions](https://packaging.python.org/guides/using-testpypi/#setting-up-testpypi-in-pypirc) on managing credentials.
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at <https://github.com/latera/hyaml>.
