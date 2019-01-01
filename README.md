@@ -14,6 +14,14 @@ Use pip to install HYAML. It's tested against Python 3.7 and work with earlier v
 pip install hyaml
 ```
 
+### Work-in-progress version
+
+To install a version that hasn't yet been published to the main index run the following command:
+
+```
+pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple hyaml
+```
+
 ## Language
 
 HYAML is an expression-oriented language or, to put it another way, it's a one-liner-oriented language. It doesn't support statements or things like assignments (directly, though it can be enhanced in certain ways).
@@ -222,8 +230,32 @@ For those who curious, there's a module named "prelude" which holds globally ava
 HYAML works with Python 3.7+. Install Python and pip then run
 
 ```bash
-pip install -r requirements.txt
+pip install -e .[dev]
 ```
+
+## Packaging and publishing
+
+According to the [docs](https://packaging.python.org/tutorials/packaging-projects/), run the following commands:
+
+```
+python3 -m pip install --user --upgrade setuptools wheel twine
+python3 setup.py sdist bdist_wheel
+```
+
+You may want to publish the package to the Test PyPi repo first:
+
+```
+twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+```
+
+If you sure and ready, publish it to the main index:
+
+```
+twine upload --repository-url https://pypi.org/legacy/ dist/*
+```
+
+Note that for publishing you'll be asked for your credentials for access to PyPi repositories. See additional [instructions](https://packaging.python.org/guides/using-testpypi/#setting-up-testpypi-in-pypirc) on managing credentials.
+
 
 ## Running tests
 
@@ -312,5 +344,3 @@ class Listener(MyGrammarListener):
 ```
 
 Check out `translator.py` to see a real example, it's rather straightforward.
-
-
