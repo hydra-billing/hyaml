@@ -4,8 +4,8 @@ import sys
 
 sys.path.append('.')
 
-from hydra.hyaml.translator import translate
-from hydra.hyaml.compiler import Compiler
+from hyaml.translator import translate
+from hyaml.compiler import Compiler
 
 methods = {
     "square": lambda x: x ** 2,

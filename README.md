@@ -139,9 +139,9 @@ $dict_var?.substring(4)?.size() or 0
 Translator takes a (presumably) valid string HYAML and generates a (most likely) valid Python expression:
 
 ```python
-from hydra.hyaml.translator import translate
+from hyaml.translator import translate
 
-translate("$foo") 
+translate("$foo")
 # variables.get('foo')
 translate("1.odd?()")
 # is_odd(1)
@@ -152,17 +152,17 @@ translate("1.odd?()")
 Compiler takes one step further and makes a function from the given expression:
 
 ```python
-from hydra.hyaml.compiler import compile
+from hyaml.compiler import compile
 
 nine_plus_five = compiler("9 + 5")
-nine_plus_five() 
+nine_plus_five()
 # 9
 ```
 
 For using variables in expressions you'll need to add bindings to functions:
 
 ```python
-from hydra.hyaml.compiler import Compiler
+from hyaml.compiler import Compiler
 compile = Compiler(bindings=("variables",))
 
 inc = compile("$var + 1")
@@ -175,10 +175,10 @@ inc({"var": 10})
 In order to work with methods you'll need to provide a table of functions to the compiler:
 
 ```python
-from hydra.hyaml.compiler import Compiler
+from hyaml.compiler import Compiler
 
 methods = {
-    "square": lambda x: x ** 2, 
+    "square": lambda x: x ** 2,
     "is_like": lambda x, y: x.startswith(y)
 }
 compile = Compiler(method_name=methods)
@@ -194,10 +194,10 @@ like()
 Finally, using variables and methods together:
 
 ```python
-from hydra.hyaml.compiler import Compiler
+from hyaml.compiler import Compiler
 
 methods = {
-    "square": lambda x: x ** 2, 
+    "square": lambda x: x ** 2,
     "is_like": lambda x, y: x.startswith(y)
 }
 compile = Compiler(method_name=methods, bindings=("variables",))
