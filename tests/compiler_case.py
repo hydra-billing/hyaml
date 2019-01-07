@@ -1,8 +1,8 @@
 from unittest import TestCase
-from hyaml.compiler import Compiler
+from hyaml.compiler import ExpressionCompiler, AssignmentCompiler
 
 
-class CompilerCase(TestCase):
+class ExpressionCompilerCase(TestCase):
     bindings = ()
     method_table = {}
 
@@ -15,5 +15,19 @@ class CompilerCase(TestCase):
 
     @property
     def compile(self):
-        return Compiler(bindings=self.bindings, method_table=self.method_table)
+        return ExpressionCompiler(
+            bindings=self.bindings, method_table=self.method_table
+        )
+
+
+class AssignmentCompilerCase(TestCase):
+    bindings = ("variables",)
+
+    def assign(self, expr, value, **kwargs):
+        self.compile(expr)(value, kwargs)
+        return kwargs
+
+    @property
+    def compile(self):
+        return AssignmentCompiler(bindings=self.bindings)
 
