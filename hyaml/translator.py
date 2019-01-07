@@ -148,13 +148,22 @@ class Listener(HyamlListener):
         self._addArg('"%s": %s' % (key, value))
 
     def enterSubscription(self, ctx):
+        if self._isAssignmentTarget(ctx.parentCtx):
+            self._top_child_countdown = self._top_child_countdown - 1
+
         self._push()
 
     def exitSubscription(self, ctx):
         _, args = self._pop()
         target = self._removeArg()
         arg, *_ = args
-        self._addArg("%s[%s]" % (target, arg))
+
+        if self._isAssignmentTarget(ctx):
+            expr = "assign(%s, %s, value)" % (target, arg)
+        else:
+            expr = "%s[%s]" % (target, arg)
+
+        self._addArg(expr)
 
     def _push(self, op_name=None, args=None):
         self._stack.append((self._op, self._args))
@@ -182,7 +191,10 @@ class Listener(HyamlListener):
                 return ctx.parentCtx.getChildCount() == 1
             elif ctx.getRuleIndex() == HyamlParser.RULE_callChain:
                 return True
-            elif ctx.getRuleIndex() == HyamlParser.RULE_attributeOrDispatch:
+            elif ctx.getRuleIndex() in (
+                HyamlParser.RULE_attributeOrDispatch,
+                HyamlParser.RULE_subscription,
+            ):
                 return self._top_child_countdown == 0
             else:
                 return False

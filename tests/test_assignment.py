@@ -17,3 +17,9 @@ class TestCompiler(TestCase):
         variables = self.assign("$x.y", 5, x={"y": 6})
         self.assertEqual(variables, {"x": {"y": 5}})
 
+    def test_assignment_subscriptions(self):
+        variables = self.assign("$x[1]", 5, x=[1, 2, 3])
+        self.assertEqual(variables, {"x": [1, 5, 3]})
+        variables = self.assign("$x[1][1]", 5, x=[[], [0, 1], []])
+        self.assertEqual(variables, {"x": [[], [0, 5], []]})
+

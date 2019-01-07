@@ -8,46 +8,46 @@ import sys
 def serializedATN():
     with StringIO() as buf:
         buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\36")
-        buf.write("\u0080\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
-        buf.write("\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\3\2")
-        buf.write("\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3%\n\3\3\3\3\3")
-        buf.write("\3\3\3\3\5\3+\n\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3")
-        buf.write("\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\7\3@\n\3\f\3")
-        buf.write("\16\3C\13\3\3\4\6\4F\n\4\r\4\16\4G\3\5\3\5\3\5\5\5M\n")
-        buf.write("\5\3\5\5\5P\n\5\3\6\3\6\3\6\7\6U\n\6\f\6\16\6X\13\6\3")
-        buf.write("\7\3\7\5\7\\\n\7\3\7\3\7\3\b\3\b\3\b\3\b\3\t\3\t\5\tf")
-        buf.write("\n\t\3\t\3\t\3\n\3\n\3\n\3\n\3\13\3\13\3\13\7\13q\n\13")
-        buf.write("\f\13\16\13t\13\13\3\f\3\f\5\fx\n\f\3\f\3\f\3\r\3\r\3")
-        buf.write("\r\3\r\3\r\2\3\4\16\2\4\6\b\n\f\16\20\22\24\26\30\2\3")
-        buf.write("\3\2\34\35\2\u008b\2\32\3\2\2\2\4*\3\2\2\2\6E\3\2\2\2")
-        buf.write("\bI\3\2\2\2\nQ\3\2\2\2\fY\3\2\2\2\16_\3\2\2\2\20c\3\2")
-        buf.write("\2\2\22i\3\2\2\2\24m\3\2\2\2\26u\3\2\2\2\30{\3\2\2\2\32")
-        buf.write("\33\5\4\3\2\33\3\3\2\2\2\34\35\b\3\1\2\35+\5\30\r\2\36")
-        buf.write("\37\7\20\2\2\37+\5\4\3\f +\5\20\t\2!+\5\26\f\2\"+\7\25")
-        buf.write("\2\2#%\7\21\2\2$#\3\2\2\2$%\3\2\2\2%&\3\2\2\2&+\7\22\2")
-        buf.write("\2\'+\7\32\2\2(+\7\f\2\2)+\7\r\2\2*\34\3\2\2\2*\36\3\2")
-        buf.write("\2\2* \3\2\2\2*!\3\2\2\2*\"\3\2\2\2*$\3\2\2\2*\'\3\2\2")
-        buf.write("\2*(\3\2\2\2*)\3\2\2\2+A\3\2\2\2,-\f\17\2\2-.\7\23\2\2")
-        buf.write(".@\5\4\3\20/\60\f\16\2\2\60\61\7\21\2\2\61@\5\4\3\17\62")
-        buf.write("\63\f\r\2\2\63\64\7\24\2\2\64@\5\4\3\16\65\66\f\13\2\2")
-        buf.write("\66\67\7\16\2\2\67@\5\4\3\f89\f\n\2\29:\7\17\2\2:@\5\4")
-        buf.write("\3\13;<\f\21\2\2<@\5\6\4\2=>\f\20\2\2>@\5\16\b\2?,\3\2")
-        buf.write("\2\2?/\3\2\2\2?\62\3\2\2\2?\65\3\2\2\2?8\3\2\2\2?;\3\2")
-        buf.write("\2\2?=\3\2\2\2@C\3\2\2\2A?\3\2\2\2AB\3\2\2\2B\5\3\2\2")
-        buf.write("\2CA\3\2\2\2DF\5\b\5\2ED\3\2\2\2FG\3\2\2\2GE\3\2\2\2G")
-        buf.write("H\3\2\2\2H\7\3\2\2\2IJ\t\2\2\2JO\7\27\2\2KM\7\36\2\2L")
-        buf.write("K\3\2\2\2LM\3\2\2\2MN\3\2\2\2NP\5\f\7\2OL\3\2\2\2OP\3")
-        buf.write("\2\2\2P\t\3\2\2\2QV\5\4\3\2RS\7\3\2\2SU\5\4\3\2TR\3\2")
-        buf.write("\2\2UX\3\2\2\2VT\3\2\2\2VW\3\2\2\2W\13\3\2\2\2XV\3\2\2")
-        buf.write("\2Y[\7\4\2\2Z\\\5\n\6\2[Z\3\2\2\2[\\\3\2\2\2\\]\3\2\2")
-        buf.write("\2]^\7\5\2\2^\r\3\2\2\2_`\7\6\2\2`a\5\4\3\2ab\7\7\2\2")
-        buf.write("b\17\3\2\2\2ce\7\6\2\2df\5\n\6\2ed\3\2\2\2ef\3\2\2\2f")
-        buf.write("g\3\2\2\2gh\7\7\2\2h\21\3\2\2\2ij\7\27\2\2jk\7\b\2\2k")
-        buf.write("l\5\4\3\2l\23\3\2\2\2mr\5\22\n\2no\7\3\2\2oq\5\22\n\2")
-        buf.write("pn\3\2\2\2qt\3\2\2\2rp\3\2\2\2rs\3\2\2\2s\25\3\2\2\2t")
-        buf.write("r\3\2\2\2uw\7\t\2\2vx\5\24\13\2wv\3\2\2\2wx\3\2\2\2xy")
-        buf.write("\3\2\2\2yz\7\n\2\2z\27\3\2\2\2{|\7\4\2\2|}\5\4\3\2}~\7")
-        buf.write("\5\2\2~\31\3\2\2\2\16$*?AGLOV[erw")
+        buf.write("\177\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4")
+        buf.write("\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\3\2\3")
+        buf.write("\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3%\n\3\3\3\3\3\3")
+        buf.write("\3\3\3\5\3+\n\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3")
+        buf.write("\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\7\3>\n\3\f\3\16\3A\13\3")
+        buf.write("\3\4\3\4\6\4E\n\4\r\4\16\4F\3\5\3\5\3\5\5\5L\n\5\3\5\5")
+        buf.write("\5O\n\5\3\6\3\6\3\6\7\6T\n\6\f\6\16\6W\13\6\3\7\3\7\5")
+        buf.write("\7[\n\7\3\7\3\7\3\b\3\b\3\b\3\b\3\t\3\t\5\te\n\t\3\t\3")
+        buf.write("\t\3\n\3\n\3\n\3\n\3\13\3\13\3\13\7\13p\n\13\f\13\16\13")
+        buf.write("s\13\13\3\f\3\f\5\fw\n\f\3\f\3\f\3\r\3\r\3\r\3\r\3\r\2")
+        buf.write("\3\4\16\2\4\6\b\n\f\16\20\22\24\26\30\2\3\3\2\34\35\2")
+        buf.write("\u008a\2\32\3\2\2\2\4*\3\2\2\2\6D\3\2\2\2\bH\3\2\2\2\n")
+        buf.write("P\3\2\2\2\fX\3\2\2\2\16^\3\2\2\2\20b\3\2\2\2\22h\3\2\2")
+        buf.write("\2\24l\3\2\2\2\26t\3\2\2\2\30z\3\2\2\2\32\33\5\4\3\2\33")
+        buf.write("\3\3\2\2\2\34\35\b\3\1\2\35+\5\30\r\2\36\37\7\20\2\2\37")
+        buf.write("+\5\4\3\f +\5\20\t\2!+\5\26\f\2\"+\7\25\2\2#%\7\21\2\2")
+        buf.write("$#\3\2\2\2$%\3\2\2\2%&\3\2\2\2&+\7\22\2\2\'+\7\32\2\2")
+        buf.write("(+\7\f\2\2)+\7\r\2\2*\34\3\2\2\2*\36\3\2\2\2* \3\2\2\2")
+        buf.write("*!\3\2\2\2*\"\3\2\2\2*$\3\2\2\2*\'\3\2\2\2*(\3\2\2\2*")
+        buf.write(")\3\2\2\2+?\3\2\2\2,-\f\17\2\2-.\7\23\2\2.>\5\4\3\20/")
+        buf.write("\60\f\16\2\2\60\61\7\21\2\2\61>\5\4\3\17\62\63\f\r\2\2")
+        buf.write("\63\64\7\24\2\2\64>\5\4\3\16\65\66\f\13\2\2\66\67\7\16")
+        buf.write("\2\2\67>\5\4\3\f89\f\n\2\29:\7\17\2\2:>\5\4\3\13;<\f\20")
+        buf.write("\2\2<>\5\6\4\2=,\3\2\2\2=/\3\2\2\2=\62\3\2\2\2=\65\3\2")
+        buf.write("\2\2=8\3\2\2\2=;\3\2\2\2>A\3\2\2\2?=\3\2\2\2?@\3\2\2\2")
+        buf.write("@\5\3\2\2\2A?\3\2\2\2BE\5\b\5\2CE\5\16\b\2DB\3\2\2\2D")
+        buf.write("C\3\2\2\2EF\3\2\2\2FD\3\2\2\2FG\3\2\2\2G\7\3\2\2\2HI\t")
+        buf.write("\2\2\2IN\7\27\2\2JL\7\36\2\2KJ\3\2\2\2KL\3\2\2\2LM\3\2")
+        buf.write("\2\2MO\5\f\7\2NK\3\2\2\2NO\3\2\2\2O\t\3\2\2\2PU\5\4\3")
+        buf.write("\2QR\7\3\2\2RT\5\4\3\2SQ\3\2\2\2TW\3\2\2\2US\3\2\2\2U")
+        buf.write("V\3\2\2\2V\13\3\2\2\2WU\3\2\2\2XZ\7\4\2\2Y[\5\n\6\2ZY")
+        buf.write("\3\2\2\2Z[\3\2\2\2[\\\3\2\2\2\\]\7\5\2\2]\r\3\2\2\2^_")
+        buf.write("\7\6\2\2_`\5\4\3\2`a\7\7\2\2a\17\3\2\2\2bd\7\6\2\2ce\5")
+        buf.write("\n\6\2dc\3\2\2\2de\3\2\2\2ef\3\2\2\2fg\7\7\2\2g\21\3\2")
+        buf.write("\2\2hi\7\27\2\2ij\7\b\2\2jk\5\4\3\2k\23\3\2\2\2lq\5\22")
+        buf.write("\n\2mn\7\3\2\2np\5\22\n\2om\3\2\2\2ps\3\2\2\2qo\3\2\2")
+        buf.write("\2qr\3\2\2\2r\25\3\2\2\2sq\3\2\2\2tv\7\t\2\2uw\5\24\13")
+        buf.write("\2vu\3\2\2\2vw\3\2\2\2wx\3\2\2\2xy\7\n\2\2y\27\3\2\2\2")
+        buf.write("z{\7\4\2\2{|\5\4\3\2|}\7\5\2\2}\31\3\2\2\2\17$*=?DFKN")
+        buf.write("UZdqv")
         return buf.getvalue()
 
 
@@ -232,10 +232,6 @@ class HyamlParser ( Parser ):
             return self.getTypedRuleContext(HyamlParser.CallChainContext,0)
 
 
-        def subscription(self):
-            return self.getTypedRuleContext(HyamlParser.SubscriptionContext,0)
-
-
         def getRuleIndex(self):
             return HyamlParser.RULE_expr
 
@@ -312,7 +308,7 @@ class HyamlParser ( Parser ):
                 raise NoViableAltException(self)
 
             self._ctx.stop = self._input.LT(-1)
-            self.state = 63
+            self.state = 61
             self._errHandler.sync(self)
             _alt = self._interp.adaptivePredict(self._input,3,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
@@ -320,7 +316,7 @@ class HyamlParser ( Parser ):
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    self.state = 61
+                    self.state = 59
                     self._errHandler.sync(self)
                     la_ = self._interp.adaptivePredict(self._input,2,self._ctx)
                     if la_ == 1:
@@ -392,26 +388,15 @@ class HyamlParser ( Parser ):
                         localctx = HyamlParser.ExprContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 57
-                        if not self.precpred(self._ctx, 15):
+                        if not self.precpred(self._ctx, 14):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 15)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 14)")
                         self.state = 58
                         self.callChain()
                         pass
 
-                    elif la_ == 7:
-                        localctx = HyamlParser.ExprContext(self, _parentctx, _parentState)
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
-                        self.state = 59
-                        if not self.precpred(self._ctx, 14):
-                            from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 14)")
-                        self.state = 60
-                        self.subscription()
-                        pass
-
              
-                self.state = 65
+                self.state = 63
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,3,self._ctx)
 
@@ -436,6 +421,13 @@ class HyamlParser ( Parser ):
                 return self.getTypedRuleContext(HyamlParser.AttributeOrDispatchContext,i)
 
 
+        def subscription(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(HyamlParser.SubscriptionContext)
+            else:
+                return self.getTypedRuleContext(HyamlParser.SubscriptionContext,i)
+
+
         def getRuleIndex(self):
             return HyamlParser.RULE_callChain
 
@@ -456,19 +448,31 @@ class HyamlParser ( Parser ):
         self.enterRule(localctx, 4, self.RULE_callChain)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 67 
+            self.state = 66 
             self._errHandler.sync(self)
             _alt = 1
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt == 1:
                     self.state = 66
-                    self.attributeOrDispatch()
+                    self._errHandler.sync(self)
+                    token = self._input.LA(1)
+                    if token in [HyamlParser.SAFE_ACCESS, HyamlParser.ACCESS]:
+                        self.state = 64
+                        self.attributeOrDispatch()
+                        pass
+                    elif token in [HyamlParser.T__3]:
+                        self.state = 65
+                        self.subscription()
+                        pass
+                    else:
+                        raise NoViableAltException(self)
+
 
                 else:
                     raise NoViableAltException(self)
-                self.state = 69 
+                self.state = 68 
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,4,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,5,self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -521,28 +525,28 @@ class HyamlParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 71
+            self.state = 70
             _la = self._input.LA(1)
             if not(_la==HyamlParser.SAFE_ACCESS or _la==HyamlParser.ACCESS):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
                 self.consume()
-            self.state = 72
+            self.state = 71
             self.match(HyamlParser.ID)
-            self.state = 77
+            self.state = 76
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,6,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,7,self._ctx)
             if la_ == 1:
-                self.state = 74
+                self.state = 73
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if _la==HyamlParser.PRED:
-                    self.state = 73
+                    self.state = 72
                     self.match(HyamlParser.PRED)
 
 
-                self.state = 76
+                self.state = 75
                 self.args()
 
 
@@ -588,17 +592,17 @@ class HyamlParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 79
+            self.state = 78
             self.expr(0)
-            self.state = 84
+            self.state = 83
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==HyamlParser.T__0:
-                self.state = 80
+                self.state = 79
                 self.match(HyamlParser.T__0)
-                self.state = 81
+                self.state = 80
                 self.expr(0)
-                self.state = 86
+                self.state = 85
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -641,17 +645,17 @@ class HyamlParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 87
+            self.state = 86
             self.match(HyamlParser.T__1)
-            self.state = 89
+            self.state = 88
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << HyamlParser.T__1) | (1 << HyamlParser.T__3) | (1 << HyamlParser.T__6) | (1 << HyamlParser.TRUE) | (1 << HyamlParser.FALSE) | (1 << HyamlParser.NOT) | (1 << HyamlParser.SIGN) | (1 << HyamlParser.NUMBER) | (1 << HyamlParser.VAR) | (1 << HyamlParser.STRING))) != 0):
-                self.state = 88
+                self.state = 87
                 self.exprList()
 
 
-            self.state = 91
+            self.state = 90
             self.match(HyamlParser.T__2)
         except RecognitionException as re:
             localctx.exception = re
@@ -691,11 +695,11 @@ class HyamlParser ( Parser ):
         self.enterRule(localctx, 12, self.RULE_subscription)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 93
+            self.state = 92
             self.match(HyamlParser.T__3)
-            self.state = 94
+            self.state = 93
             self.expr(0)
-            self.state = 95
+            self.state = 94
             self.match(HyamlParser.T__4)
         except RecognitionException as re:
             localctx.exception = re
@@ -736,17 +740,17 @@ class HyamlParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 97
+            self.state = 96
             self.match(HyamlParser.T__3)
-            self.state = 99
+            self.state = 98
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << HyamlParser.T__1) | (1 << HyamlParser.T__3) | (1 << HyamlParser.T__6) | (1 << HyamlParser.TRUE) | (1 << HyamlParser.FALSE) | (1 << HyamlParser.NOT) | (1 << HyamlParser.SIGN) | (1 << HyamlParser.NUMBER) | (1 << HyamlParser.VAR) | (1 << HyamlParser.STRING))) != 0):
-                self.state = 98
+                self.state = 97
                 self.exprList()
 
 
-            self.state = 101
+            self.state = 100
             self.match(HyamlParser.T__4)
         except RecognitionException as re:
             localctx.exception = re
@@ -789,11 +793,11 @@ class HyamlParser ( Parser ):
         self.enterRule(localctx, 16, self.RULE_keyValuePair)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 103
+            self.state = 102
             self.match(HyamlParser.ID)
-            self.state = 104
+            self.state = 103
             self.match(HyamlParser.T__5)
-            self.state = 105
+            self.state = 104
             self.expr(0)
         except RecognitionException as re:
             localctx.exception = re
@@ -837,17 +841,17 @@ class HyamlParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 107
+            self.state = 106
             self.keyValuePair()
-            self.state = 112
+            self.state = 111
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==HyamlParser.T__0:
-                self.state = 108
+                self.state = 107
                 self.match(HyamlParser.T__0)
-                self.state = 109
+                self.state = 108
                 self.keyValuePair()
-                self.state = 114
+                self.state = 113
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -890,17 +894,17 @@ class HyamlParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 115
+            self.state = 114
             self.match(HyamlParser.T__6)
-            self.state = 117
+            self.state = 116
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==HyamlParser.ID:
-                self.state = 116
+                self.state = 115
                 self.keyValuePairs()
 
 
-            self.state = 119
+            self.state = 118
             self.match(HyamlParser.T__7)
         except RecognitionException as re:
             localctx.exception = re
@@ -940,11 +944,11 @@ class HyamlParser ( Parser ):
         self.enterRule(localctx, 22, self.RULE_parens)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 121
+            self.state = 120
             self.match(HyamlParser.T__1)
-            self.state = 122
+            self.state = 121
             self.expr(0)
-            self.state = 123
+            self.state = 122
             self.match(HyamlParser.T__2)
         except RecognitionException as re:
             localctx.exception = re
@@ -988,10 +992,6 @@ class HyamlParser ( Parser ):
          
 
             if predIndex == 5:
-                return self.precpred(self._ctx, 15)
-         
-
-            if predIndex == 6:
                 return self.precpred(self._ctx, 14)
          
 
