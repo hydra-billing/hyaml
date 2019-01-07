@@ -17,10 +17,11 @@ class Parser(HyamlParser):
 
 
 class Listener(HyamlListener):
-    def __init__(self):
+    def __init__(self, assignment=False):
         self._op = None
         self._args = []
         self._stack = []
+        self._assignment = assignment
 
     @property
     def output(self):
@@ -45,8 +46,14 @@ class Listener(HyamlListener):
             self._addArg(sign + number)
         elif ctx.VAR():
             var_name = ctx.VAR().getText()[1:]
-            expr = "variables.get('%s')" % var_name
+
+            if self._isAssignmentTarget(ctx):
+                expr = "assign(variables, '%s', value)" % var_name
+            else:
+                expr = "variables.get('%s')" % var_name
+
             self._addArg(expr)
+
         elif ctx.STRING():
             string = ctx.getText()
             self._addArg(self._escape(string))
@@ -96,8 +103,16 @@ class Listener(HyamlListener):
         _, elements = self._pop()
         self._addArg("{%s}" % ", ".join(elements))
 
+    def enterCallChain(self, ctx):
+        if self._isAssignmentTarget(ctx):
+            self._top_child_countdown = ctx.getChildCount()
+
     def enterAttributeOrDispatch(self, ctx):
+        if self._isAssignmentTarget(ctx.parentCtx):
+            self._top_child_countdown = self._top_child_countdown - 1
+
         target = self._removeArg()
+
         if ctx.args():
             if ctx.PRED():
                 method_name = "is_%s" % ctx.ID().getText()
@@ -106,9 +121,13 @@ class Listener(HyamlListener):
 
             self._push(_escape_keyword(method_name), [target])
         else:
-            method = "safe_get" if ctx.SAFE_ACCESS() else "get"
-            arg = "%s(%s, '%s')" % (method, target, ctx.ID().getText())
-            self._addArg(arg)
+            if self._isAssignmentTarget(ctx):
+                expr = "assign(%s, '%s', value)" % (target, ctx.ID().getText())
+            else:
+                method = "safe_get" if ctx.SAFE_ACCESS() else "get"
+                expr = "%s(%s, '%s')" % (method, target, ctx.ID().getText())
+
+            self._addArg(expr)
 
     def exitAttributeOrDispatch(self, ctx):
         if ctx.args():
@@ -129,13 +148,22 @@ class Listener(HyamlListener):
         self._addArg('"%s": %s' % (key, value))
 
     def enterSubscription(self, ctx):
+        if self._isAssignmentTarget(ctx.parentCtx):
+            self._top_child_countdown = self._top_child_countdown - 1
+
         self._push()
 
     def exitSubscription(self, ctx):
         _, args = self._pop()
         target = self._removeArg()
         arg, *_ = args
-        self._addArg("%s[%s]" % (target, arg))
+
+        if self._isAssignmentTarget(ctx):
+            expr = "assign(%s, %s, value)" % (target, arg)
+        else:
+            expr = "%s[%s]" % (target, arg)
+
+        self._addArg(expr)
 
     def _push(self, op_name=None, args=None):
         self._stack.append((self._op, self._args))
@@ -157,9 +185,25 @@ class Listener(HyamlListener):
     def _escape(self, string):
         return string.replace("\\", "\\\\")
 
+    def _isAssignmentTarget(self, ctx):
+        if self._assignment and len(self._stack) == 0:
+            if ctx.getRuleIndex() == HyamlParser.RULE_expr:
+                return ctx.parentCtx.getChildCount() == 1
+            elif ctx.getRuleIndex() == HyamlParser.RULE_callChain:
+                return True
+            elif ctx.getRuleIndex() in (
+                HyamlParser.RULE_attributeOrDispatch,
+                HyamlParser.RULE_subscription,
+            ):
+                return self._top_child_countdown == 0
+            else:
+                return False
+        else:
+            return False
+
 
 class Translator:
-    def __call__(self, expr):
+    def __call__(self, expr, assignment=False):
         input = InputStream(expr)
         lexer = HyamlLexer(input)
         stream = CommonTokenStream(lexer)
@@ -167,7 +211,7 @@ class Translator:
         tree = parser.prog()
         # lisp_tree_str = tree.toStringTree(recog=parser)
         # print(lisp_tree_str)
-        listener = Listener()
+        listener = Listener(assignment=assignment)
         walker = ParseTreeWalker()
         walker.walk(listener, tree)
 
@@ -176,4 +220,4 @@ class Translator:
 
 _translator = Translator()
 
-translate = lambda text: _translator(text)
+translate = lambda text, **kwargs: _translator(text, **kwargs)

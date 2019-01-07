@@ -22,6 +22,9 @@ class TestSubscription(TestCase):
     def test_list_subscription(self):
         self.assertTranslated("[1, 2, 3][1]", "[1, 2, 3][1]")
 
+    def test_nested_subscriptions(self):
+        self.assertTranslated("[[1, 2], [2, 3]][1][0]", "[[1, 2], [2, 3]][1][0]")
+
 
 class TestDict(TestCase):
     def test_empty_dict(self):

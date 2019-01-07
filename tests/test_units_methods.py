@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from unittest import main
-from tests import CompilerCase as TestCase
+from tests import ExpressionCompilerCase as TestCase
 from datetime import timedelta
 
 from hyaml.methods import units

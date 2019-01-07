@@ -4,7 +4,6 @@ prog: expr;
 expr:
 	parens
 	| expr callChain
-	| expr subscription
 	| expr MULT_DIV_OP expr
 	| expr SIGN expr
 	| expr COMP_OP expr
@@ -19,7 +18,7 @@ expr:
 	| TRUE
 	| FALSE;
 
-callChain: attributeOrDispatch+;
+callChain: (attributeOrDispatch | subscription)+;
 
 NEWLINE: [\r\n]+;
 TRUE: 'true';
