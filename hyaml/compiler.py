@@ -12,9 +12,12 @@ class Compiler:
         self._method_table = {**prelude, **method_table}
 
     def add_methods(self, **methods):
-        return self.__class__(
-            bindings=self._bindings, method_table={**self._method_table, **methods}
-        )
+        if methods == {}:
+            return self
+        else:
+            return self.__class__(
+                bindings=self._bindings, method_table={**self._method_table, **methods}
+            )
 
 
 class ExpressionCompiler(Compiler):
