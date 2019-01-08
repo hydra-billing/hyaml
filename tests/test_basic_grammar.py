@@ -7,6 +7,7 @@ from tests import TranslationCase as TestCase
 class TestBasicGrammar(TestCase):
     def test_variable(self):
         self.assertTranslated("$foo", "variables.get('foo')")
+        self.assertTranslated("$foo_1", "variables.get('foo_1')")
 
     def test_integer(self):
         self.assertTranslated("50", "50")

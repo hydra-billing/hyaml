@@ -23,7 +23,7 @@ def serializedATN():
         buf.write("P\3\2\2\2\fX\3\2\2\2\16^\3\2\2\2\20b\3\2\2\2\22h\3\2\2")
         buf.write("\2\24l\3\2\2\2\26t\3\2\2\2\30z\3\2\2\2\32\33\5\4\3\2\33")
         buf.write("\3\3\2\2\2\34\35\b\3\1\2\35+\5\30\r\2\36\37\7\20\2\2\37")
-        buf.write("+\5\4\3\f +\5\20\t\2!+\5\26\f\2\"+\7\25\2\2#%\7\21\2\2")
+        buf.write("+\5\4\3\f +\5\20\t\2!+\5\26\f\2\"+\7\27\2\2#%\7\21\2\2")
         buf.write("$#\3\2\2\2$%\3\2\2\2%&\3\2\2\2&+\7\22\2\2\'+\7\32\2\2")
         buf.write("(+\7\f\2\2)+\7\r\2\2*\34\3\2\2\2*\36\3\2\2\2* \3\2\2\2")
         buf.write("*!\3\2\2\2*\"\3\2\2\2*$\3\2\2\2*\'\3\2\2\2*(\3\2\2\2*")
@@ -35,14 +35,14 @@ def serializedATN():
         buf.write("\2\2=8\3\2\2\2=;\3\2\2\2>A\3\2\2\2?=\3\2\2\2?@\3\2\2\2")
         buf.write("@\5\3\2\2\2A?\3\2\2\2BE\5\b\5\2CE\5\16\b\2DB\3\2\2\2D")
         buf.write("C\3\2\2\2EF\3\2\2\2FD\3\2\2\2FG\3\2\2\2G\7\3\2\2\2HI\t")
-        buf.write("\2\2\2IN\7\27\2\2JL\7\36\2\2KJ\3\2\2\2KL\3\2\2\2LM\3\2")
+        buf.write("\2\2\2IN\7\26\2\2JL\7\36\2\2KJ\3\2\2\2KL\3\2\2\2LM\3\2")
         buf.write("\2\2MO\5\f\7\2NK\3\2\2\2NO\3\2\2\2O\t\3\2\2\2PU\5\4\3")
         buf.write("\2QR\7\3\2\2RT\5\4\3\2SQ\3\2\2\2TW\3\2\2\2US\3\2\2\2U")
         buf.write("V\3\2\2\2V\13\3\2\2\2WU\3\2\2\2XZ\7\4\2\2Y[\5\n\6\2ZY")
         buf.write("\3\2\2\2Z[\3\2\2\2[\\\3\2\2\2\\]\7\5\2\2]\r\3\2\2\2^_")
         buf.write("\7\6\2\2_`\5\4\3\2`a\7\7\2\2a\17\3\2\2\2bd\7\6\2\2ce\5")
         buf.write("\n\6\2dc\3\2\2\2de\3\2\2\2ef\3\2\2\2fg\7\7\2\2g\21\3\2")
-        buf.write("\2\2hi\7\27\2\2ij\7\b\2\2jk\5\4\3\2k\23\3\2\2\2lq\5\22")
+        buf.write("\2\2hi\7\26\2\2ij\7\b\2\2jk\5\4\3\2k\23\3\2\2\2lq\5\22")
         buf.write("\n\2mn\7\3\2\2np\5\22\n\2om\3\2\2\2ps\3\2\2\2qo\3\2\2")
         buf.write("\2qr\3\2\2\2r\25\3\2\2\2sq\3\2\2\2tv\7\t\2\2uw\5\24\13")
         buf.write("\2vu\3\2\2\2vw\3\2\2\2wx\3\2\2\2xy\7\n\2\2y\27\3\2\2\2")
@@ -72,7 +72,7 @@ class HyamlParser ( Parser ):
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "NEWLINE", "TRUE", "FALSE", "AND", "OR", 
                       "NOT", "SIGN", "NUMBER", "MULT_DIV_OP", "COMP_OP", 
-                      "VAR", "ID_SYMBOL", "ID", "LETTER", "DIGIT", "STRING", 
+                      "ID_SYMBOL", "ID", "VAR", "LETTER", "DIGIT", "STRING", 
                       "WS", "SAFE_ACCESS", "ACCESS", "PRED" ]
 
     RULE_prog = 0
@@ -111,9 +111,9 @@ class HyamlParser ( Parser ):
     NUMBER=16
     MULT_DIV_OP=17
     COMP_OP=18
-    VAR=19
-    ID_SYMBOL=20
-    ID=21
+    ID_SYMBOL=19
+    ID=20
+    VAR=21
     LETTER=22
     DIGIT=23
     STRING=24
