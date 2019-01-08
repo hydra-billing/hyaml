@@ -152,7 +152,7 @@ Translator takes a (presumably) valid string HYAML and generates a (most likely)
 from hyaml.translator import translate
 
 translate("$foo")
-# variables.get('foo')
+# get(variables, 'foo')
 translate("1.odd?()")
 # is_odd(1)
 ```

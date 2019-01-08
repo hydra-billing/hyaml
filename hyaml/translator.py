@@ -50,7 +50,7 @@ class Listener(HyamlListener):
             if self._isAssignmentTarget(ctx):
                 expr = "assign(variables, '%s', value)" % var_name
             else:
-                expr = "variables.get('%s')" % var_name
+                expr = "get(variables, '%s')" % var_name
 
             self._addArg(expr)
 

@@ -8,7 +8,7 @@ class TestLists(TestCase):
     def test_list_of_expressions(self):
         self.assertTranslated(
             "[1, true, not false, $cdr.Attr:3]",
-            "[1, True, not False, get(variables.get('cdr'), 'Attr:3')]",
+            "[1, True, not False, get(get(variables, 'cdr'), 'Attr:3')]",
         )
 
     def test_empty_list(self):
@@ -17,7 +17,7 @@ class TestLists(TestCase):
 
 class TestSubscription(TestCase):
     def test_subscription(self):
-        self.assertTranslated("$var[0]", "variables.get('var')[0]")
+        self.assertTranslated("$var[0]", "get(variables, 'var')[0]")
 
     def test_list_subscription(self):
         self.assertTranslated("[1, 2, 3][1]", "[1, 2, 3][1]")
@@ -50,7 +50,7 @@ class TestPrecedence(TestCase):
     def test_negation_precedence(self):
         self.assertTranslated(
             "$a.like?('a') or $b.like?('b')",
-            "is_like(variables.get('a'), 'a') or is_like(variables.get('b'), 'b')",
+            "is_like(get(variables, 'a'), 'a') or is_like(get(variables, 'b'), 'b')",
         )
 
     def test_float_precedence(self):
