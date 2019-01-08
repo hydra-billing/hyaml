@@ -1,3 +1,6 @@
+from datetime import datetime
+
+
 def to_hex(value):
     if isinstance(value, str):
         return value.encode().hex()
@@ -17,9 +20,11 @@ def is_null(value):
     return value is None
 
 
-def to_s(value):
+def to_s(value, fmt=None):
     if value is None:
         return ""
+    elif isinstance(value, datetime):
+        return value.strftime(fmt)
     else:
         return str(value)
 

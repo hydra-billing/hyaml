@@ -136,6 +136,11 @@ class TestPolymorphic(TestCase):
         self.assertMethodCall("$x.to_s()", "5", x="5")
         self.assertMethodCall("$x.to_s()", "", x=None)
         self.assertMethodCall("$x.to_s()", "5.0", x=5.0)
+        self.assertMethodCall(
+            "$x.to_s('%Y-%m-%d %H:%M')",
+            "2018-12-19 22:12",
+            x=datetime(2018, 12, 19, 22, 12, 41),
+        )
 
     def test_try(self):
         self.assertMethodCall("$x.try('Foo')", 5, x={"Foo": 5})
