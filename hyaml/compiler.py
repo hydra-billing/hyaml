@@ -5,12 +5,19 @@ from hyaml.methods import assignment
 from textwrap import dedent
 
 
-class ExpressionCompiler:
+class Compiler:
     def __init__(self, bindings=(), method_table={}):
         self._bindings = bindings
         self.arg_names = ", ".join(self._bindings)
         self._method_table = {**prelude, **method_table}
 
+    def add_methods(self, **methods):
+        return self.__class__(
+            bindings=self._bindings, method_table={**self._method_table, **methods}
+        )
+
+
+class ExpressionCompiler(Compiler):
     def __call__(self, expr):
         py_expr = translate(expr)
 
@@ -42,11 +49,14 @@ def _expr_compiler(bindings=()):
 compile_expression = lambda expr, bindings=(): _expr_compiler(bindings=bindings)(expr)
 
 
-class AssignmentCompiler:
+class AssignmentCompiler(Compiler):
     def __init__(self, bindings=(), method_table={}):
-        self._bindings = ("value",) + bindings
-        self.arg_names = ", ".join(self._bindings)
-        self._method_table = {**prelude, **assignment, **method_table}
+        if len(bindings) == 0 or bindings[0] != "value":
+            bs = ("value",) + bindings
+        else:
+            bs = bindings
+
+        super().__init__(bindings=bs, method_table={**assignment, **method_table})
 
     def __call__(self, stmt):
         py_stmt = translate(stmt, assignment=True)

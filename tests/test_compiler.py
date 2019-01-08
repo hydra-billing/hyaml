@@ -49,6 +49,11 @@ class TestCompiler(TestCase):
     def test_escaping(self):
         self.assertEvaluatedTo("'\\s\\d'", "\\s\\d")
 
+    def test_prototype(self):
+        compiler = self.compile
+        extended_compiler = compiler.add_methods(random=lambda _: 42)
+        self.assertEqual(extended_compiler("123.random()")(), 42)
+
 
 class TestVariables(TestCase):
     bindings = ("variables",)
