@@ -13,7 +13,7 @@ setup(
     name="hyaml",
     # Versions should comply with PEP 440:
     # https://www.python.org/dev/peps/pep-0440/
-    version="0.1.3",
+    version="0.1.4",
     description="HYAML is a one-liner oriented language",
     long_description=long_description,
     long_description_content_type="text/markdown",
