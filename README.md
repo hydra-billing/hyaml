@@ -339,7 +339,7 @@ twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 If you sure and ready, publish it to the main index:
 
 ```
-twine upload --repository-url https://pypi.org/legacy/ dist/*
+twine upload dist/*
 ```
 
 Note that for publishing you'll be asked for your credentials for access to PyPi repositories. See additional [instructions](https://packaging.python.org/guides/using-testpypi/#setting-up-testpypi-in-pypirc) on managing credentials.
