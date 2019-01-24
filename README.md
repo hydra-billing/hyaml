@@ -336,7 +336,7 @@ You may want to publish the package to the Test PyPi repo first:
 twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 ```
 
-If you sure and ready, publish it to the main index:
+If you're sure and ready, publish it to the main index:
 
 ```
 twine upload dist/*
