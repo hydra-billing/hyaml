@@ -1,4 +1,4 @@
-FROM python:3.7.1
+FROM python:3.7.2
 
 RUN mkdir /hyaml
 
@@ -12,4 +12,4 @@ RUN pip install -e .[dev]
 COPY hyaml hyaml
 COPY tests tests
 
-CMD pipenv run python -m xmlrunner tests/test_* && tar cvzf tests_output.tar.gz *.xml
+CMD python -m xmlrunner tests/test_* && tar cvzf tests_output.tar.gz *.xml
