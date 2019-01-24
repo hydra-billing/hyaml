@@ -323,6 +323,12 @@ pip install -e .[dev]
 
 ## Packaging and publishing
 
+Update the version number in setup.py, set a new tag (`-s` is not required if you don't sign your commits):
+
+```
+git tag -a -s -m 'Version x.y.z' vx.y.z
+```
+
 According to the [docs](https://packaging.python.org/tutorials/packaging-projects/), run the following commands:
 
 ```
