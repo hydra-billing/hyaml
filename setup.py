@@ -32,7 +32,7 @@ setup(
     keywords="antlr language one-liner hydra hyaml",
     packages=find_packages(exclude=["tests"]),
     install_requires=["antlr4-python3-runtime>=4.7.1"],
-    extras_require={"dev": ["black", "unittest-xml-reporting"]},
+    extras_require={"dev": ["black", "unittest-xml-reporting", "coverage"]},
     entry_points={"console_scripts": ["hyaml=hyaml:main"]},
     project_urls={
         "Bug Reports": "https://github.com/latera/hyaml/issues",

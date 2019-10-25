@@ -12,4 +12,4 @@ RUN pip install -e .[dev]
 COPY hyaml hyaml
 COPY tests tests
 
-CMD python -m xmlrunner tests/test_* && tar cvzf tests_output.tar.gz *.xml
+CMD coverage run --source=hyaml -m xmlrunner tests/test_* && coverage html && tar cvzf tests_output.tar.gz *.xml
