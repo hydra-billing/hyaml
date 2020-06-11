@@ -54,3 +54,14 @@ def coalesce(value, *args):
             return arg
     else:
         return None
+
+
+def to_list(value):
+    if value is None:
+        return []
+    elif isinstance(value, dict):
+        return list(sorted(value.items()))
+    elif isinstance(value, list):
+        return value
+    else:
+        return [value]

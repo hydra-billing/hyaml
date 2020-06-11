@@ -165,6 +165,16 @@ class TestPolymorphic(TestCase):
         self.assertMethodCall("$x.coalesce(1, $y)", 1, x=None, y=None)
         self.assertMethodCall("$x.coalesce($y)", None, x=None, y=None)
 
+    def test_converting_to_list(self):
+        self.assertMethodCall("$x.to_list()", [], x=None)
+        self.assertMethodCall("$x.to_list()", [0], x=0)
+        self.assertMethodCall("$x.to_list()", [""], x="")
+        self.assertMethodCall("$x.to_list()", ["foo"], x="foo")
+        self.assertMethodCall("$x.to_list()", [], x=[])
+        self.assertMethodCall("$x.to_list()", [1, 2, 3], x=[1, 2, 3])
+        self.assertMethodCall("$x.to_list()", [], x={})
+        self.assertMethodCall("$x.to_list()", [("a", 1), ("b", 2)], x={"b": 2, "a": 1})
+
 
 class TestDictionary(TestCase):
     bindings = ("variables",)
@@ -206,4 +216,3 @@ class TestArray(TestCase):
         self.assertMethodCall("$x.join()", "", x=[])
         self.assertMethodCall("$x.join()", "123", x=[1, 2, 3])
         self.assertMethodCall("$x.join()", "123", x=[1, None, 2, None, 3])
-
