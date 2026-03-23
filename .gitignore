@@ -106,3 +106,5 @@ dmypy.json
 .vscode
 .antlr
 .idea
+.claude
+CLAUDE.md
