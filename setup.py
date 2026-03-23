@@ -13,7 +13,7 @@ setup(
     name="hyaml",
     # Versions should comply with PEP 440:
     # https://www.python.org/dev/peps/pep-0440/
-    version="0.1.6",
+    version="0.1.7",
     description="HYAML is a one-liner oriented language",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -31,7 +31,7 @@ setup(
     ],
     keywords="antlr language one-liner hydra hyaml",
     packages=find_packages(exclude=["tests"]),
-    install_requires=["antlr4-python3-runtime>=4.7.1"],
+    install_requires=["antlr4-python3-runtime>=4.13"],
     extras_require={"dev": ["black", "unittest-xml-reporting", "coverage"]},
     entry_points={"console_scripts": ["hyaml=hyaml:main"]},
     project_urls={
