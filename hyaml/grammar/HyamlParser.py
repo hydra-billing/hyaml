@@ -1,55 +1,58 @@
-# Generated from Hyaml.g4 by ANTLR 4.7.1
+# Generated from hyaml/grammar/Hyaml.g4 by ANTLR 4.13.2
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
-from typing.io import TextIO
 import sys
+if sys.version_info[1] > 5:
+	from typing import TextIO
+else:
+	from typing.io import TextIO
 
 def serializedATN():
-    with StringIO() as buf:
-        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\36")
-        buf.write("\177\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4")
-        buf.write("\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\3\2\3")
-        buf.write("\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3%\n\3\3\3\3\3\3")
-        buf.write("\3\3\3\5\3+\n\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3")
-        buf.write("\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\7\3>\n\3\f\3\16\3A\13\3")
-        buf.write("\3\4\3\4\6\4E\n\4\r\4\16\4F\3\5\3\5\3\5\5\5L\n\5\3\5\5")
-        buf.write("\5O\n\5\3\6\3\6\3\6\7\6T\n\6\f\6\16\6W\13\6\3\7\3\7\5")
-        buf.write("\7[\n\7\3\7\3\7\3\b\3\b\3\b\3\b\3\t\3\t\5\te\n\t\3\t\3")
-        buf.write("\t\3\n\3\n\3\n\3\n\3\13\3\13\3\13\7\13p\n\13\f\13\16\13")
-        buf.write("s\13\13\3\f\3\f\5\fw\n\f\3\f\3\f\3\r\3\r\3\r\3\r\3\r\2")
-        buf.write("\3\4\16\2\4\6\b\n\f\16\20\22\24\26\30\2\3\3\2\34\35\2")
-        buf.write("\u008a\2\32\3\2\2\2\4*\3\2\2\2\6D\3\2\2\2\bH\3\2\2\2\n")
-        buf.write("P\3\2\2\2\fX\3\2\2\2\16^\3\2\2\2\20b\3\2\2\2\22h\3\2\2")
-        buf.write("\2\24l\3\2\2\2\26t\3\2\2\2\30z\3\2\2\2\32\33\5\4\3\2\33")
-        buf.write("\3\3\2\2\2\34\35\b\3\1\2\35+\5\30\r\2\36\37\7\20\2\2\37")
-        buf.write("+\5\4\3\f +\5\20\t\2!+\5\26\f\2\"+\7\27\2\2#%\7\21\2\2")
-        buf.write("$#\3\2\2\2$%\3\2\2\2%&\3\2\2\2&+\7\22\2\2\'+\7\32\2\2")
-        buf.write("(+\7\f\2\2)+\7\r\2\2*\34\3\2\2\2*\36\3\2\2\2* \3\2\2\2")
-        buf.write("*!\3\2\2\2*\"\3\2\2\2*$\3\2\2\2*\'\3\2\2\2*(\3\2\2\2*")
-        buf.write(")\3\2\2\2+?\3\2\2\2,-\f\17\2\2-.\7\23\2\2.>\5\4\3\20/")
-        buf.write("\60\f\16\2\2\60\61\7\21\2\2\61>\5\4\3\17\62\63\f\r\2\2")
-        buf.write("\63\64\7\24\2\2\64>\5\4\3\16\65\66\f\13\2\2\66\67\7\16")
-        buf.write("\2\2\67>\5\4\3\f89\f\n\2\29:\7\17\2\2:>\5\4\3\13;<\f\20")
-        buf.write("\2\2<>\5\6\4\2=,\3\2\2\2=/\3\2\2\2=\62\3\2\2\2=\65\3\2")
-        buf.write("\2\2=8\3\2\2\2=;\3\2\2\2>A\3\2\2\2?=\3\2\2\2?@\3\2\2\2")
-        buf.write("@\5\3\2\2\2A?\3\2\2\2BE\5\b\5\2CE\5\16\b\2DB\3\2\2\2D")
-        buf.write("C\3\2\2\2EF\3\2\2\2FD\3\2\2\2FG\3\2\2\2G\7\3\2\2\2HI\t")
-        buf.write("\2\2\2IN\7\26\2\2JL\7\36\2\2KJ\3\2\2\2KL\3\2\2\2LM\3\2")
-        buf.write("\2\2MO\5\f\7\2NK\3\2\2\2NO\3\2\2\2O\t\3\2\2\2PU\5\4\3")
-        buf.write("\2QR\7\3\2\2RT\5\4\3\2SQ\3\2\2\2TW\3\2\2\2US\3\2\2\2U")
-        buf.write("V\3\2\2\2V\13\3\2\2\2WU\3\2\2\2XZ\7\4\2\2Y[\5\n\6\2ZY")
-        buf.write("\3\2\2\2Z[\3\2\2\2[\\\3\2\2\2\\]\7\5\2\2]\r\3\2\2\2^_")
-        buf.write("\7\6\2\2_`\5\4\3\2`a\7\7\2\2a\17\3\2\2\2bd\7\6\2\2ce\5")
-        buf.write("\n\6\2dc\3\2\2\2de\3\2\2\2ef\3\2\2\2fg\7\7\2\2g\21\3\2")
-        buf.write("\2\2hi\7\26\2\2ij\7\b\2\2jk\5\4\3\2k\23\3\2\2\2lq\5\22")
-        buf.write("\n\2mn\7\3\2\2np\5\22\n\2om\3\2\2\2ps\3\2\2\2qo\3\2\2")
-        buf.write("\2qr\3\2\2\2r\25\3\2\2\2sq\3\2\2\2tv\7\t\2\2uw\5\24\13")
-        buf.write("\2vu\3\2\2\2vw\3\2\2\2wx\3\2\2\2xy\7\n\2\2y\27\3\2\2\2")
-        buf.write("z{\7\4\2\2{|\5\4\3\2|}\7\5\2\2}\31\3\2\2\2\17$*=?DFKN")
-        buf.write("UZdqv")
-        return buf.getvalue()
-
+    return [
+        4,1,28,125,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,1,0,1,0,1,1,1,1,1,
+        1,1,1,1,1,1,1,1,1,1,1,3,1,35,8,1,1,1,1,1,1,1,1,1,3,1,41,8,1,1,1,
+        1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+        5,1,60,8,1,10,1,12,1,63,9,1,1,2,1,2,4,2,67,8,2,11,2,12,2,68,1,3,
+        1,3,1,3,3,3,74,8,3,1,3,3,3,77,8,3,1,4,1,4,1,4,5,4,82,8,4,10,4,12,
+        4,85,9,4,1,5,1,5,3,5,89,8,5,1,5,1,5,1,6,1,6,1,6,1,6,1,7,1,7,3,7,
+        99,8,7,1,7,1,7,1,8,1,8,1,8,1,8,1,9,1,9,1,9,5,9,110,8,9,10,9,12,9,
+        113,9,9,1,10,1,10,3,10,117,8,10,1,10,1,10,1,11,1,11,1,11,1,11,1,
+        11,0,1,2,12,0,2,4,6,8,10,12,14,16,18,20,22,0,1,1,0,26,27,136,0,24,
+        1,0,0,0,2,40,1,0,0,0,4,66,1,0,0,0,6,70,1,0,0,0,8,78,1,0,0,0,10,86,
+        1,0,0,0,12,92,1,0,0,0,14,96,1,0,0,0,16,102,1,0,0,0,18,106,1,0,0,
+        0,20,114,1,0,0,0,22,120,1,0,0,0,24,25,3,2,1,0,25,1,1,0,0,0,26,27,
+        6,1,-1,0,27,41,3,22,11,0,28,29,5,14,0,0,29,41,3,2,1,10,30,41,3,14,
+        7,0,31,41,3,20,10,0,32,41,5,21,0,0,33,35,5,15,0,0,34,33,1,0,0,0,
+        34,35,1,0,0,0,35,36,1,0,0,0,36,41,5,16,0,0,37,41,5,24,0,0,38,41,
+        5,10,0,0,39,41,5,11,0,0,40,26,1,0,0,0,40,28,1,0,0,0,40,30,1,0,0,
+        0,40,31,1,0,0,0,40,32,1,0,0,0,40,34,1,0,0,0,40,37,1,0,0,0,40,38,
+        1,0,0,0,40,39,1,0,0,0,41,61,1,0,0,0,42,43,10,13,0,0,43,44,5,17,0,
+        0,44,60,3,2,1,14,45,46,10,12,0,0,46,47,5,15,0,0,47,60,3,2,1,13,48,
+        49,10,11,0,0,49,50,5,18,0,0,50,60,3,2,1,12,51,52,10,9,0,0,52,53,
+        5,12,0,0,53,60,3,2,1,10,54,55,10,8,0,0,55,56,5,13,0,0,56,60,3,2,
+        1,9,57,58,10,14,0,0,58,60,3,4,2,0,59,42,1,0,0,0,59,45,1,0,0,0,59,
+        48,1,0,0,0,59,51,1,0,0,0,59,54,1,0,0,0,59,57,1,0,0,0,60,63,1,0,0,
+        0,61,59,1,0,0,0,61,62,1,0,0,0,62,3,1,0,0,0,63,61,1,0,0,0,64,67,3,
+        6,3,0,65,67,3,12,6,0,66,64,1,0,0,0,66,65,1,0,0,0,67,68,1,0,0,0,68,
+        66,1,0,0,0,68,69,1,0,0,0,69,5,1,0,0,0,70,71,7,0,0,0,71,76,5,20,0,
+        0,72,74,5,28,0,0,73,72,1,0,0,0,73,74,1,0,0,0,74,75,1,0,0,0,75,77,
+        3,10,5,0,76,73,1,0,0,0,76,77,1,0,0,0,77,7,1,0,0,0,78,83,3,2,1,0,
+        79,80,5,1,0,0,80,82,3,2,1,0,81,79,1,0,0,0,82,85,1,0,0,0,83,81,1,
+        0,0,0,83,84,1,0,0,0,84,9,1,0,0,0,85,83,1,0,0,0,86,88,5,2,0,0,87,
+        89,3,8,4,0,88,87,1,0,0,0,88,89,1,0,0,0,89,90,1,0,0,0,90,91,5,3,0,
+        0,91,11,1,0,0,0,92,93,5,4,0,0,93,94,3,2,1,0,94,95,5,5,0,0,95,13,
+        1,0,0,0,96,98,5,4,0,0,97,99,3,8,4,0,98,97,1,0,0,0,98,99,1,0,0,0,
+        99,100,1,0,0,0,100,101,5,5,0,0,101,15,1,0,0,0,102,103,5,20,0,0,103,
+        104,5,6,0,0,104,105,3,2,1,0,105,17,1,0,0,0,106,111,3,16,8,0,107,
+        108,5,1,0,0,108,110,3,16,8,0,109,107,1,0,0,0,110,113,1,0,0,0,111,
+        109,1,0,0,0,111,112,1,0,0,0,112,19,1,0,0,0,113,111,1,0,0,0,114,116,
+        5,7,0,0,115,117,3,18,9,0,116,115,1,0,0,0,116,117,1,0,0,0,117,118,
+        1,0,0,0,118,119,5,8,0,0,119,21,1,0,0,0,120,121,5,2,0,0,121,122,3,
+        2,1,0,122,123,5,3,0,0,123,23,1,0,0,0,13,34,40,59,61,66,68,73,76,
+        83,88,98,111,116
+    ]
 
 class HyamlParser ( Parser ):
 
@@ -124,13 +127,15 @@ class HyamlParser ( Parser ):
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
-        self.checkVersion("4.7.1")
+        self.checkVersion("4.13.2")
         self._interp = ParserATNSimulator(self, self.atn, self.decisionsToDFA, self.sharedContextCache)
         self._predicates = None
 
 
 
+
     class ProgContext(ParserRuleContext):
+        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -170,7 +175,9 @@ class HyamlParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class ExprContext(ParserRuleContext):
+        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -258,33 +265,33 @@ class HyamlParser ( Parser ):
             self.state = 40
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [HyamlParser.T__1]:
+            if token in [2]:
                 self.state = 27
                 self.parens()
                 pass
-            elif token in [HyamlParser.NOT]:
+            elif token in [14]:
                 self.state = 28
                 self.match(HyamlParser.NOT)
                 self.state = 29
                 self.expr(10)
                 pass
-            elif token in [HyamlParser.T__3]:
+            elif token in [4]:
                 self.state = 30
                 self.listLiteral()
                 pass
-            elif token in [HyamlParser.T__6]:
+            elif token in [7]:
                 self.state = 31
                 self.dictLiteral()
                 pass
-            elif token in [HyamlParser.VAR]:
+            elif token in [21]:
                 self.state = 32
                 self.match(HyamlParser.VAR)
                 pass
-            elif token in [HyamlParser.SIGN, HyamlParser.NUMBER]:
+            elif token in [15, 16]:
                 self.state = 34
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la==HyamlParser.SIGN:
+                if _la==15:
                     self.state = 33
                     self.match(HyamlParser.SIGN)
 
@@ -292,15 +299,15 @@ class HyamlParser ( Parser ):
                 self.state = 36
                 self.match(HyamlParser.NUMBER)
                 pass
-            elif token in [HyamlParser.STRING]:
+            elif token in [24]:
                 self.state = 37
                 self.match(HyamlParser.STRING)
                 pass
-            elif token in [HyamlParser.TRUE]:
+            elif token in [10]:
                 self.state = 38
                 self.match(HyamlParser.TRUE)
                 pass
-            elif token in [HyamlParser.FALSE]:
+            elif token in [11]:
                 self.state = 39
                 self.match(HyamlParser.FALSE)
                 pass
@@ -408,7 +415,9 @@ class HyamlParser ( Parser ):
             self.unrollRecursionContexts(_parentctx)
         return localctx
 
+
     class CallChainContext(ParserRuleContext):
+        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -456,11 +465,11 @@ class HyamlParser ( Parser ):
                     self.state = 66
                     self._errHandler.sync(self)
                     token = self._input.LA(1)
-                    if token in [HyamlParser.SAFE_ACCESS, HyamlParser.ACCESS]:
+                    if token in [26, 27]:
                         self.state = 64
                         self.attributeOrDispatch()
                         pass
-                    elif token in [HyamlParser.T__3]:
+                    elif token in [4]:
                         self.state = 65
                         self.subscription()
                         pass
@@ -482,7 +491,9 @@ class HyamlParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class AttributeOrDispatchContext(ParserRuleContext):
+        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -527,7 +538,7 @@ class HyamlParser ( Parser ):
             self.enterOuterAlt(localctx, 1)
             self.state = 70
             _la = self._input.LA(1)
-            if not(_la==HyamlParser.SAFE_ACCESS or _la==HyamlParser.ACCESS):
+            if not(_la==26 or _la==27):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -541,7 +552,7 @@ class HyamlParser ( Parser ):
                 self.state = 73
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la==HyamlParser.PRED:
+                if _la==28:
                     self.state = 72
                     self.match(HyamlParser.PRED)
 
@@ -558,7 +569,9 @@ class HyamlParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class ExprListContext(ParserRuleContext):
+        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -597,7 +610,7 @@ class HyamlParser ( Parser ):
             self.state = 83
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==HyamlParser.T__0:
+            while _la==1:
                 self.state = 79
                 self.match(HyamlParser.T__0)
                 self.state = 80
@@ -614,7 +627,9 @@ class HyamlParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class ArgsContext(ParserRuleContext):
+        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -650,7 +665,7 @@ class HyamlParser ( Parser ):
             self.state = 88
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << HyamlParser.T__1) | (1 << HyamlParser.T__3) | (1 << HyamlParser.T__6) | (1 << HyamlParser.TRUE) | (1 << HyamlParser.FALSE) | (1 << HyamlParser.NOT) | (1 << HyamlParser.SIGN) | (1 << HyamlParser.NUMBER) | (1 << HyamlParser.VAR) | (1 << HyamlParser.STRING))) != 0):
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & 18992276) != 0):
                 self.state = 87
                 self.exprList()
 
@@ -665,7 +680,9 @@ class HyamlParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class SubscriptionContext(ParserRuleContext):
+        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -709,7 +726,9 @@ class HyamlParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class ListLiteralContext(ParserRuleContext):
+        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -745,7 +764,7 @@ class HyamlParser ( Parser ):
             self.state = 98
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << HyamlParser.T__1) | (1 << HyamlParser.T__3) | (1 << HyamlParser.T__6) | (1 << HyamlParser.TRUE) | (1 << HyamlParser.FALSE) | (1 << HyamlParser.NOT) | (1 << HyamlParser.SIGN) | (1 << HyamlParser.NUMBER) | (1 << HyamlParser.VAR) | (1 << HyamlParser.STRING))) != 0):
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & 18992276) != 0):
                 self.state = 97
                 self.exprList()
 
@@ -760,7 +779,9 @@ class HyamlParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class KeyValuePairContext(ParserRuleContext):
+        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -807,7 +828,9 @@ class HyamlParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class KeyValuePairsContext(ParserRuleContext):
+        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -846,7 +869,7 @@ class HyamlParser ( Parser ):
             self.state = 111
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==HyamlParser.T__0:
+            while _la==1:
                 self.state = 107
                 self.match(HyamlParser.T__0)
                 self.state = 108
@@ -863,7 +886,9 @@ class HyamlParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class DictLiteralContext(ParserRuleContext):
+        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -899,7 +924,7 @@ class HyamlParser ( Parser ):
             self.state = 116
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==HyamlParser.ID:
+            if _la==20:
                 self.state = 115
                 self.keyValuePairs()
 
@@ -914,7 +939,9 @@ class HyamlParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class ParensContext(ParserRuleContext):
+        __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)

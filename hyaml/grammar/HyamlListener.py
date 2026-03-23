@@ -1,6 +1,6 @@
-# Generated from Hyaml.g4 by ANTLR 4.7.1
+# Generated from hyaml/grammar/Hyaml.g4 by ANTLR 4.13.2
 from antlr4 import *
-if __name__ is not None and "." in __name__:
+if "." in __name__:
     from .HyamlParser import HyamlParser
 else:
     from HyamlParser import HyamlParser
@@ -116,3 +116,5 @@ class HyamlListener(ParseTreeListener):
         pass
 
 
+
+del HyamlParser
