@@ -242,6 +242,7 @@ $ hyaml
 True
 >>>
 ```
+Your command history is stored in the `~/.hyaml_history` file.
 
 ## ANTLR
 
